@@ -5,6 +5,8 @@
  */
 package Controladores;
 
+import java.awt.Color;
+
 /**
  *
  * @author Geraldine Romero
@@ -16,6 +18,12 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        
+        this.lienzo1=new Lienzo();
+        this.lienzo1.setBackground(Color.black);
+        this.lienzo1.setVisible(true);
+        this.lienzo1.setSize(800, 500);
+        this.add(lienzo1);
     }
 
     /**
@@ -30,6 +38,9 @@ public class Inicio extends javax.swing.JFrame {
         lienzo1 = new Controladores.Lienzo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lienzo1.setBackground(new java.awt.Color(0, 0, 0));
+        lienzo1.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout lienzo1Layout = new javax.swing.GroupLayout(lienzo1);
         lienzo1.setLayout(lienzo1Layout);
@@ -47,16 +58,14 @@ public class Inicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addComponent(lienzo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(0, 74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(lienzo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(0, 29, Short.MAX_VALUE))
         );
 
         pack();
