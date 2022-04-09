@@ -9,6 +9,7 @@ import Clases.Circulo;
 import Clases.Cuadrado;
 import Clases.FiguraGeometrica;
 import Clases.Imagen;
+import Clases.Rectangulo;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -45,6 +46,8 @@ public class Lienzo extends javax.swing.JPanel {
                 dibujarCirculo(g, (Circulo)figuraActual);
             } else if (figuraActual instanceof  Imagen){
                 dibujarImagen(g, (Imagen)figuraActual);
+            } else if (figuraActual instanceof  Rectangulo){
+                dibujarRectangulo(g, (Rectangulo)figuraActual);
             }
         }
     }
@@ -54,6 +57,12 @@ public class Lienzo extends javax.swing.JPanel {
         g.fillRect(elCuadrado.getX(), elCuadrado.getY(), elCuadrado.getLado(), elCuadrado.getLado());
         g.setColor(elCuadrado.getBorde());
         g.drawRect(elCuadrado.getX(), elCuadrado.getY(), elCuadrado.getLado(), elCuadrado.getLado());
+    }
+    public void dibujarRectangulo(Graphics g,Rectangulo elRectangulo){
+        g.setColor(elRectangulo.getColorRelleno());
+        g.fillRect(elRectangulo.getX(), elRectangulo.getY(), elRectangulo.getAncho(), elRectangulo.getAlto());
+        g.setColor(elRectangulo.getBorde());
+        g.drawRect(elRectangulo.getX(), elRectangulo.getY(), elRectangulo.getAncho(), elRectangulo.getAlto());
     }
     
     public void dibujarCirculo(Graphics g,Circulo elCirculo){
