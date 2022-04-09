@@ -5,6 +5,8 @@
  */
 package Controladores;
 
+import Clases.Cuadrado;
+import Clases.Imagen;
 import java.awt.Color;
 
 /**
@@ -19,11 +21,16 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         
-        this.lienzo1=new Lienzo();
-        this.lienzo1.setBackground(Color.black);
-        this.lienzo1.setVisible(true);
-        this.lienzo1.setSize(800, 500);
-        this.add(lienzo1);
+//        this.lienzo1=new Lienzo();
+//        this.lienzo1.setBackground(Color.black);
+//        this.lienzo1.setVisible(true);
+//        this.lienzo1.setSize(800, 500);
+//        this.add(lienzo1);
+    }
+    public void creacionEscenario(){
+        Imagen FanRojo= new Imagen(25, 25, 752, 22, "src/recursosPacman/fantasmaRojo.png", true, true, true) ;
+        this.lienzo1.getFiguras().add(FanRojo);
+//        Cuadrado cuadrado1 = new Cuadrado(WIDTH, WIDTH, Color.blue, Color.green, WIDTH, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
     }
 
     /**
@@ -39,8 +46,8 @@ public class Inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lienzo1.setBackground(new java.awt.Color(0, 0, 0));
-        lienzo1.setForeground(new java.awt.Color(0, 0, 0));
+        lienzo1.setBackground(new java.awt.Color(153, 153, 153));
+        lienzo1.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout lienzo1Layout = new javax.swing.GroupLayout(lienzo1);
         lienzo1.setLayout(lienzo1Layout);
