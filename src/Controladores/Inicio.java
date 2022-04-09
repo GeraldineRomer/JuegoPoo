@@ -20,17 +20,26 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-        
-//        this.lienzo1=new Lienzo();
-//        this.lienzo1.setBackground(Color.black);
-//        this.lienzo1.setVisible(true);
-//        this.lienzo1.setSize(800, 500);
-//        this.add(lienzo1);
+        creacionEscenario();
+        Color backG= new Color(5,5,20);
+        this.lienzo1=new Lienzo();
+        this.lienzo1.setBackground(backG);
+        this.lienzo1.setVisible(true);
+        this.lienzo1.setSize(800, 500);
+        this.add(lienzo1);
     }
     public void creacionEscenario(){
         Imagen FanRojo= new Imagen(25, 25, 752, 22, "src/recursosPacman/fantasmaRojo.png", true, true, true) ;
+        Imagen FanNaranja= new Imagen(25, 25, 752, 452, "src/recursosPacman/fantasmaNaranja.png", true, true, true) ;
+        Imagen FanRosa= new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, true, true) ;
+        Imagen FanVerde= new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", true, true, true) ;
+        
         this.lienzo1.getFiguras().add(FanRojo);
-//        Cuadrado cuadrado1 = new Cuadrado(WIDTH, WIDTH, Color.blue, Color.green, WIDTH, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
+        this.lienzo1.getFiguras().add(FanNaranja);
+        this.lienzo1.getFiguras().add(FanRosa);
+        this.lienzo1.getFiguras().add(FanVerde);
+//        Cuadrado cuadrado1 = new Cuadrado(10, 10, Color.blue, Color.green, 25, true, true, true);
+//        this.lienzo1.getFiguras().add(cuadrado1);
     }
 
     /**
@@ -46,8 +55,8 @@ public class Inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lienzo1.setBackground(new java.awt.Color(153, 153, 153));
-        lienzo1.setForeground(new java.awt.Color(255, 255, 255));
+        lienzo1.setBackground(new java.awt.Color(5, 5, 20));
+        lienzo1.setForeground(new java.awt.Color(5, 5, 20));
 
         javax.swing.GroupLayout lienzo1Layout = new javax.swing.GroupLayout(lienzo1);
         lienzo1.setLayout(lienzo1Layout);
