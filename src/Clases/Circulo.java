@@ -16,11 +16,11 @@ public class Circulo extends FiguraEstandar{
     private int radio;
 
     public Circulo() {
-        super(0, 0, null, null,true,true,false);
+        super(0, 0, null, null,true,true,false,"");
     }
 
-    public Circulo( int x, int y, Color borde, Color colorRelleno,int radio, boolean direccionAdelante, boolean direccionArriba,boolean maquina) {
-        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,maquina);
+    public Circulo( int x, int y, Color borde, Color colorRelleno,int radio, boolean direccionAdelante, boolean direccionArriba,boolean maquina, String id) {
+        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,maquina,id);
         this.radio = radio;
         Rectangle area=new Rectangle(x, y, radio*2, radio*2);
         this.setArea(area);

@@ -17,18 +17,18 @@ public class Rectangulo extends FiguraEstandar {
     private int alto;
 
     public Rectangulo() {
-        super(0, 0, null, null,true,true,false);
+        super(0, 0, null, null,true,true,false,"");
     }
 
-    public Rectangulo( int x, int y, Color borde, Color colorRelleno, int ancho,int alto,boolean direccionAdelante, boolean direccionArriba) {
-        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,false);
+    public Rectangulo( int x, int y, Color borde, Color colorRelleno, int ancho,int alto,boolean direccionAdelante, boolean direccionArriba,String id) {
+        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,false,id);
         this.ancho = ancho;
         this.alto=alto;
         Rectangle area=new Rectangle(x, y, ancho, alto);
         this.setArea(area);
     }
-    public Rectangulo( int x, int y, Color borde, Color colorRelleno, int ancho,int alto,boolean direccionAdelante, boolean direccionArriba,boolean maquina) {
-        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,maquina);
+    public Rectangulo( int x, int y, Color borde, Color colorRelleno, int ancho,int alto,boolean direccionAdelante, boolean direccionArriba,boolean maquina,String id) {
+        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,maquina,id);
         this.ancho = ancho;
         this.alto=alto;
         Rectangle area=new Rectangle(x, y, ancho, alto);

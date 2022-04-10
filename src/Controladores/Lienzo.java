@@ -150,13 +150,19 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public boolean verificarColisiones(FiguraGeometrica jugador){
         boolean respuesta=false;
         int i=0;
+        
         while(i<this.figuras.size() && !respuesta){
+            
             if (jugador!=this.figuras.get(i) && jugador.getArea().intersects(this.figuras.get(i).getArea())) {
                 respuesta=true;
+                System.out.println(this.figuras.get(i).getId());
             }
             i++;
+            System.out.println(respuesta);
+            
         }
         return respuesta;
+        
     }
     
     public void movimientoFantasmaVerde(FiguraEstandar fanVerde){

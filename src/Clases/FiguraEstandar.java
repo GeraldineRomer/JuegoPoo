@@ -15,14 +15,14 @@ public abstract class FiguraEstandar extends FiguraGeometrica{
     private int x;
     private int y;
     
-    public FiguraEstandar(int x, int y, Color borde, Color colorRelleno, boolean direccionAdelante, boolean direccionArriba,boolean maquina) {
-        super(borde, colorRelleno, direccionAdelante, direccionArriba,maquina);
+    public FiguraEstandar(int x, int y, Color borde, Color colorRelleno, boolean direccionAdelante, boolean direccionArriba,boolean maquina,String id) {
+        super(borde, colorRelleno, direccionAdelante, direccionArriba,maquina,id);
         this.x = x;
         this.y = y;
     }
     
-    public FiguraEstandar(int x, int y, boolean direccionAdelante, boolean direccionArriba,boolean maquina) {
-        super(null, null, direccionAdelante, direccionArriba,maquina);
+    public FiguraEstandar(int x, int y, boolean direccionAdelante, boolean direccionArriba,boolean maquina,String id) {
+        super(null, null, direccionAdelante, direccionArriba,maquina,id);
         this.x = x;
         this.y = y;
     }
