@@ -27,6 +27,13 @@ public class Rectangulo extends FiguraEstandar {
         Rectangle area=new Rectangle(x, y, ancho, alto);
         this.setArea(area);
     }
+    public Rectangulo( int x, int y, Color borde, Color colorRelleno, int ancho,int alto,boolean direccionAdelante, boolean direccionArriba,boolean maquina) {
+        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,maquina);
+        this.ancho = ancho;
+        this.alto=alto;
+        Rectangle area=new Rectangle(x, y, ancho, alto);
+        this.setArea(area);
+    }
     
 
     /**

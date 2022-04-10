@@ -15,7 +15,7 @@ import java.awt.Color;
  * @author Geraldine Romero
  */
 public class Inicio extends javax.swing.JFrame {
-
+ Imagen pacman;
     /**
      * Creates new form Inicio
      */
@@ -30,6 +30,8 @@ public class Inicio extends javax.swing.JFrame {
         this.add(lienzo1);
     }
     public void creacionEscenario(){
+        this.pacman = new Imagen(29, 29, 311, 389, "src/recursosPacman/pacman.png", true, true, false);
+        this.lienzo1.getFiguras().add(pacman);
         fantasmas();
         laberinto();
     }
@@ -84,6 +86,14 @@ public class Inicio extends javax.swing.JFrame {
         Rectangulo R12 = new Rectangulo(309, 270, Color.blue, Color.blue, 182, 17, true, true);
         Rectangulo R13 = new Rectangulo(340, 300, Color.blue, Color.blue, 120, 30, true, true);
         Rectangulo R14 = new Rectangulo(305, 420, Color.blue, Color.blue, 190, 30, true, true);
+        Rectangulo R31 = new Rectangulo(521, 140, Color.blue, Color.blue, 33, 32, true, true);
+        Rectangulo R32 = new Rectangulo(667, 50, Color.blue, Color.blue, 83, 30, true, true);
+        Rectangulo R33 = new Rectangulo(611, 110, Color.blue, Color.blue, 139, 30, true, true);
+        Rectangulo R34 = new Rectangulo(611, 170, Color.blue, Color.blue, 139, 30, true, true);
+        Rectangulo R35 = new Rectangulo(611, 260, Color.blue, Color.blue, 139, 30, true, true);
+        Rectangulo R36 = new Rectangulo(611, 320, Color.blue, Color.blue, 139, 30, true, true);
+        Rectangulo R37 = new Rectangulo(611,380, Color.blue, Color.blue, 139, 40, true, true);
+         
         this.lienzo1.getFiguras().add(R1);
         this.lienzo1.getFiguras().add(R2);
         this.lienzo1.getFiguras().add(R3);
@@ -98,6 +108,13 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(R12);
         this.lienzo1.getFiguras().add(R13);
         this.lienzo1.getFiguras().add(R14);
+        this.lienzo1.getFiguras().add(R31);
+        this.lienzo1.getFiguras().add(R32);
+        this.lienzo1.getFiguras().add(R33);
+        this.lienzo1.getFiguras().add(R34);
+        this.lienzo1.getFiguras().add(R35);
+        this.lienzo1.getFiguras().add(R36);
+        this.lienzo1.getFiguras().add(R37);
         
         
         
@@ -112,7 +129,14 @@ public class Inicio extends javax.swing.JFrame {
         Rectangulo R20 = new Rectangulo(309, 65, Color.blue, Color.blue, 30, 107, true, true);
         Rectangulo R21 = new Rectangulo(279, 330, Color.blue, Color.blue, 31, 120, true, true);
         Rectangulo R22 = new Rectangulo(366, 330, Color.blue, Color.blue, 4, 60, true, true);
-        
+        Rectangulo R23 = new Rectangulo(430, 330, Color.blue, Color.blue, 4, 60, true, true);
+        Rectangulo R24 = new Rectangulo(461, 65, Color.blue, Color.blue, 30, 107, true, true);
+        Rectangulo R25 = new Rectangulo(490, 330, Color.blue, Color.blue, 31, 120, true, true);
+        Rectangulo R26 = new Rectangulo(551, 50, Color.blue, Color.blue, 30, 182, true, true);
+        Rectangulo R27 = new Rectangulo(551, 260, Color.blue, Color.blue, 30, 160, true, true);
+        Rectangulo R28 = new Rectangulo(611, 50, Color.blue, Color.blue, 26, 69, true, true);
+        Rectangulo R29 = new Rectangulo(690, 230, Color.blue, Color.blue, 30, 57, true, true);
+        Rectangulo R30 = new Rectangulo(671, 336, Color.blue, Color.blue, 30, 57, true, true);
         this.lienzo1.getFiguras().add(R15);
         this.lienzo1.getFiguras().add(R16);
         this.lienzo1.getFiguras().add(R17);
@@ -121,6 +145,15 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(R20);
         this.lienzo1.getFiguras().add(R21);
         this.lienzo1.getFiguras().add(R22);
+        this.lienzo1.getFiguras().add(R23);
+        this.lienzo1.getFiguras().add(R24);
+        this.lienzo1.getFiguras().add(R25);
+        this.lienzo1.getFiguras().add(R26);
+        this.lienzo1.getFiguras().add(R27);
+        this.lienzo1.getFiguras().add(R28);
+        this.lienzo1.getFiguras().add(R29);
+        this.lienzo1.getFiguras().add(R30);
+        
     }
     
     
