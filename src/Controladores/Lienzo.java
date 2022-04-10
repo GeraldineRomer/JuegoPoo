@@ -93,7 +93,9 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         movimientoFantasmaRosa((FiguraEstandar)figuraActual);
                         movimientoFantasmaNaranja((FiguraEstandar)figuraActual);
                         movimientoFantasmaRojo((FiguraEstandar)figuraActual);
-                    }
+                        movimientoEctoplasmaVerde((FiguraEstandar)figuraActual);
+                        validarFronterasEctoplasma((FiguraEstandar)figuraActual);
+                    } 
                 }
             }
             repaint();
@@ -114,6 +116,27 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         } else if (laFigura.getY()<=20){
             laFigura.setDireccionArriba(true);
         }
+    }
+    
+    public boolean validarFronterasEctoplasma(FiguraEstandar laFigura){
+        //mirar hacia adelante y hacia atrás
+        if (laFigura instanceof Imagen){
+            if (((Imagen) laFigura).getRuta().equals("src/recursosPacman/ectoplasma.png")){
+                if (laFigura.getX()>=500) {
+                    return true;
+                } else if (laFigura.getX()<=0){
+                    return true;
+                }
+                //mirar hacia arriba y hacia abajo
+                if(laFigura.getY()>=500){
+                    return true;
+                } else if (laFigura.getY()<=0){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
     
     public void esperar(int milisegundos){
@@ -145,6 +168,18 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                     fanVerde.setY(fanVerde.getY()-1);
                 }
                 validarFronteras(fanVerde);
+            }
+        }
+    }
+    
+    public void movimientoEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
+        if (ectoplasmaVerde instanceof Imagen){
+            if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")) {
+                if (ectoplasmaVerde.isDireccionAdelante() == true){
+                    ectoplasmaVerde.setX(ectoplasmaVerde.getX()+1);
+                } else {
+                    ectoplasmaVerde.setX(ectoplasmaVerde.getX()-1);
+                }
             }
         }
     }
@@ -187,6 +222,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }
         }
     }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.

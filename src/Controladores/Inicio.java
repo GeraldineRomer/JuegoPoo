@@ -28,6 +28,7 @@ public class Inicio extends javax.swing.JFrame {
 //        this.lienzo1.setVisible(true);
 //        this.lienzo1.setSize(800, 500);
 //        this.add(lienzo1);
+        
         Thread proceso=new Thread(this.lienzo1);
         this.lienzo1.setEstaJugando(true);
         proceso.start();
@@ -36,8 +37,9 @@ public class Inicio extends javax.swing.JFrame {
     public void creacionEscenario(){
         this.pacman = new Imagen(25, 25, 313, 393, "src/recursosPacman/pacman.png", true, true, false);
         this.lienzo1.getFiguras().add(pacman);
-        fantasmas();
         laberinto();
+        fantasmas();
+        
     }
     
     public void laberinto(){
@@ -51,16 +53,25 @@ public class Inicio extends javax.swing.JFrame {
         Imagen FanRosa= new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, false, true) ;
         Imagen FanVerde= new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", false, true, true) ;
         
+        
+        disparar(FanVerde);
+        
+        
         this.lienzo1.getFiguras().add(FanRojo);
         this.lienzo1.getFiguras().add(FanNaranja);
         this.lienzo1.getFiguras().add(FanRosa);
         this.lienzo1.getFiguras().add(FanVerde);
-
+        
+        
     }
     
-    public void disparar(){
-        Imagen Ectoplasma= new Imagen(12, 12, 22, 22, "src/recursosPacman/fantasmaVerde.png", true, true, true) ;
+    public void disparar(Imagen fantasma){
+        Imagen Ectoplasma= new Imagen(20, 20, fantasma.getX(), fantasma.getY(), "src/recursosPacman/ectoplasma.png", true, false, true) ;
+        this.lienzo1.getFiguras().add(Ectoplasma);
         
+        if(this.lienzo1.validarFronterasEctoplasma(Ectoplasma) == true){
+            System.out.println("entra");
+        }
     }
     
     public void bordesLaberinto(){

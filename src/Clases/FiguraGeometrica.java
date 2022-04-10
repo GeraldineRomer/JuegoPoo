@@ -33,6 +33,7 @@ public abstract class FiguraGeometrica {
     }
 
     public abstract void actualizarArea();
+    public abstract void actualizarPosiciones();
     
     /**
      * @return the borde
