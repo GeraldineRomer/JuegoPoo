@@ -224,9 +224,9 @@ public class Inicio extends javax.swing.JFrame {
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setY(this.pacman.getY()-1);
                     
-                    this.pacman.actualizarArea();
-                    repaint();
-                    this.lienzo1.esperar(1);
+//                    this.pacman.actualizarArea();
+//                    repaint();
+//                    this.lienzo1.esperar(1);
                 }
             } else if (evt.getKeyChar()=='a'){
                 while(this.lienzo1.verificarColisiones(pacman) != true){
