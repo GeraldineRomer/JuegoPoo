@@ -150,7 +150,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public boolean verificarColisiones(FiguraGeometrica jugador){
         boolean respuesta=false;
         int i=0;
-        
+        jugador.actualizarArea();
         while(i<this.figuras.size() && !respuesta){
             
             if (jugador!=this.figuras.get(i) && jugador.getArea().intersects(this.figuras.get(i).getArea())) {

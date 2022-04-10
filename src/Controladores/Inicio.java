@@ -230,35 +230,43 @@ public class Inicio extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
+        
         this.setFocusable(true);
+        int time=0;
+        
 //        System.out.println(evt.getKeyChar());
             if (evt.getKeyChar()=='w') {
-                if(this.lienzo1.verificarColisiones(pacman) != true){
+                while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setY(this.pacman.getY()-1);
+                    repaint();
+                    this.lienzo1.esperar(time);
                     
                 }
+                this.pacman.setY(this.pacman.getY()+1);
+            
+            
             } else if (evt.getKeyChar()=='a'){
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setX(this.pacman.getX()-1);
-                    
-                    this.pacman.actualizarArea();
+                    this.lienzo1.esperar(time);
                     repaint();
-                    this.lienzo1.esperar(1);
+                    
+                    
                 }
+                this.pacman.setX(this.pacman.getX()+1);
                 
             } else if (evt.getKeyChar()=='s'){
                 
-                System.out.println(this.lienzo1.verificarColisiones(pacman));
+//                System.out.println(this.lienzo1.verificarColisiones(pacman));
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                       
                     this.pacman.setY(this.pacman.getY()+1);
-                    
-                    this.pacman.actualizarArea();
+                    this.lienzo1.esperar(time);
                     repaint();
-                    this.lienzo1.esperar(1);
+                    
                 }
                 System.out.println(this.pacman.getY());
-                this.lienzo1.verificarColisiones(pacman);
+               
                 this.pacman.setY(this.pacman.getY()-1);
                 
             } else if (evt.getKeyChar()=='d'){
@@ -266,10 +274,10 @@ public class Inicio extends javax.swing.JFrame {
                     this.pacman.setX(this.pacman.getX()+1);
                     System.out.println("entra d");
                     System.out.println(evt.getKeyChar());
-                    this.pacman.actualizarArea();
+                    this.lienzo1.esperar(time);
                     repaint();
-                    this.lienzo1.esperar(1);
                 }
+                this.pacman.setX(this.pacman.getX()-1);
                 
             }
         
