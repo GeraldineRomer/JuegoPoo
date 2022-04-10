@@ -68,4 +68,9 @@ public class Rectangulo extends FiguraEstandar {
         Rectangle area=new Rectangle(this.getX(), this.getY(), this.getAncho(), this.getAlto());
         this.setArea(area);
     }   
+
+    @Override
+    public void actualizarPosiciones() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

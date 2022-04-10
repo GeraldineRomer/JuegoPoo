@@ -23,6 +23,7 @@ public class Imagen extends FiguraEstandar{
         this.ancho = ancho;
         this.alto = alto;
         Rectangle area=new Rectangle(x, y, ancho, alto);
+        
         this.setArea(area);
     }
 
@@ -72,5 +73,11 @@ public class Imagen extends FiguraEstandar{
     public void actualizarArea() {
         Rectangle area=new Rectangle(this.getX(), this.getY(), this.ancho, this.alto);
         this.setArea(area);
+    }
+
+    @Override
+    public void actualizarPosiciones() {
+        int x=this.getX();
+        int y=this.getY();
     }
 }

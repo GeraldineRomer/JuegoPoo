@@ -45,4 +45,9 @@ public class Circulo extends FiguraEstandar{
         Rectangle area=new Rectangle(this.getX(), this.getY(), this.radio*2, radio*2);
         this.setArea(area);
     }
+
+    @Override
+    public void actualizarPosiciones() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
