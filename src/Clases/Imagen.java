@@ -76,8 +76,8 @@ public class Imagen extends FiguraEstandar{
     }
 
     @Override
-    public void actualizarPosiciones() {
-        int x=this.getX();
-        int y=this.getY();
+    public void actualizarPosiciones(int x,int y) {
+        this.getX();
+        this.getY();
     }
 }

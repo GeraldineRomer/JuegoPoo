@@ -93,8 +93,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         movimientoFantasmaRosa((FiguraEstandar)figuraActual);
                         movimientoFantasmaNaranja((FiguraEstandar)figuraActual);
                         movimientoFantasmaRojo((FiguraEstandar)figuraActual);
-                        movimientoEctoplasmaVerde((FiguraEstandar)figuraActual);
-                        validarFronterasEctoplasma((FiguraEstandar)figuraActual);
+                        disparar((FiguraEstandar)figuraActual, (FiguraEstandar)figuraActual);
+//                        movimientoEctoplasmaVerde((FiguraEstandar)figuraActual);
                     } 
                 }
             }
@@ -119,15 +119,13 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     }
     
     public boolean validarFronterasEctoplasma(FiguraEstandar laFigura){
-        //mirar hacia adelante y hacia atrás
         if (laFigura instanceof Imagen){
             if (((Imagen) laFigura).getRuta().equals("src/recursosPacman/ectoplasma.png")){
-                if (laFigura.getX()>=500) {
+                if (laFigura.getX()>=800) {
                     return true;
                 } else if (laFigura.getX()<=0){
                     return true;
                 }
-                //mirar hacia arriba y hacia abajo
                 if(laFigura.getY()>=500){
                     return true;
                 } else if (laFigura.getY()<=0){
@@ -135,7 +133,6 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 }
             }
         }
-        
         return false;
     }
     
@@ -159,7 +156,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         return respuesta;
     }
     
-    public void movimientoFantasmaVerde(FiguraEstandar fanVerde){
+    public int movimientoFantasmaVerde(FiguraEstandar fanVerde){
         if (fanVerde instanceof Imagen){
             if (((Imagen) fanVerde).getRuta().equals("src/recursosPacman/fantasmaVerde.png")) {
                 if (fanVerde.isDireccionArriba() == true){
@@ -170,9 +167,10 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 validarFronteras(fanVerde);
             }
         }
+        return  fanVerde.getY();
     }
     
-    public void movimientoEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
+    public boolean movimientoEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
         if (ectoplasmaVerde instanceof Imagen){
             if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")) {
                 if (ectoplasmaVerde.isDireccionAdelante() == true){
@@ -182,6 +180,22 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 }
             }
         }
+        return validarFronterasEctoplasma(ectoplasmaVerde);
+    }
+    
+    public void disparar(FiguraEstandar fanVerde,FiguraEstandar ectoplasmaVerde){
+        if (ectoplasmaVerde instanceof Imagen){
+            if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")){
+                if (movimientoEctoplasmaVerde(ectoplasmaVerde)){
+                    if (fanVerde instanceof Imagen){
+                        if (((Imagen) fanVerde).getRuta().equals("src/recursosPacman/fantasmaVerde.png")){
+                            ectoplasmaVerde.setY(movimientoFantasmaVerde(fanVerde));
+                        }
+                    }
+                }
+            }
+        }
+        
     }
     
     public void movimientoFantasmaNaranja(FiguraEstandar FanNaranja){
