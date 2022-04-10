@@ -7,6 +7,7 @@ package Controladores;
 
 import Clases.Circulo;
 import Clases.Cuadrado;
+import Clases.FiguraEstandar;
 import Clases.FiguraGeometrica;
 import Clases.Imagen;
 import Clases.Rectangulo;
@@ -14,12 +15,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Geraldine Romero
  */
-public class Lienzo extends javax.swing.JPanel {
+public class Lienzo extends javax.swing.JPanel implements Runnable {
     private LinkedList <FiguraGeometrica> figuras;
     private boolean estaJugando;
     
@@ -78,7 +82,112 @@ public class Lienzo extends javax.swing.JPanel {
         Image imagen = t.getImage(laImagen.getRuta());
         g.drawImage(imagen, laImagen.getX(), laImagen.getY(), laImagen.getAncho(),laImagen.getAlto(),this);
     }
-
+    
+    @Override
+    public void run() {
+        while(this.isEstaJugando()){
+            for (FiguraGeometrica figuraActual:this.figuras) {
+                if(figuraActual instanceof FiguraEstandar){
+                    if (figuraActual.isMaquina()){
+                        movimientoFantasmaVerde((FiguraEstandar)figuraActual);
+                        movimientoFantasmaRosa((FiguraEstandar)figuraActual);
+                        movimientoFantasmaNaranja((FiguraEstandar)figuraActual);
+                        movimientoFantasmaRojo((FiguraEstandar)figuraActual);
+                    }
+                }
+            }
+            repaint();
+            esperar(5);
+        }
+    }
+    
+    public void validarFronteras(FiguraEstandar laFigura){
+        //mirar hacia adelante y hacia atrás
+        if (laFigura.getX()>=755) {
+            laFigura.setDireccionAdelante(false);
+        } else if (laFigura.getX()<=20){
+            laFigura.setDireccionAdelante(true);
+        }
+        //mirar hacia arriba y hacia abajo
+        if(laFigura.getY()>=455){
+            laFigura.setDireccionArriba(false);
+        } else if (laFigura.getY()<=20){
+            laFigura.setDireccionArriba(true);
+        }
+    }
+    
+    public void esperar(int milisegundos){
+        try {
+            Thread.sleep(milisegundos);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Lienzo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean verificarColisiones(FiguraGeometrica jugador){
+        boolean respuesta=false;
+        int i=0;
+        while(i<this.figuras.size() && !respuesta){
+            if (jugador!=this.figuras.get(i) && jugador.getArea().intersects(this.figuras.get(i).getArea())) {
+                respuesta=true;
+            }
+            i++;
+        }
+        return respuesta;
+    }
+    
+    public void movimientoFantasmaVerde(FiguraEstandar fanVerde){
+        if (fanVerde instanceof Imagen){
+            if (((Imagen) fanVerde).getRuta().equals("src/recursosPacman/fantasmaVerde.png")) {
+                if (fanVerde.isDireccionArriba() == true){
+                    fanVerde.setY(fanVerde.getY()+1);
+                } else {
+                    fanVerde.setY(fanVerde.getY()-1);
+                }
+                validarFronteras(fanVerde);
+            }
+        }
+    }
+    
+    public void movimientoFantasmaNaranja(FiguraEstandar FanNaranja){
+        if (FanNaranja instanceof Imagen){
+            if (((Imagen) FanNaranja).getRuta().equals("src/recursosPacman/fantasmaNaranja.png")) {
+                if (FanNaranja.isDireccionArriba() != true){
+                    FanNaranja.setY(FanNaranja.getY()-1);
+                } else {
+                    FanNaranja.setY(FanNaranja.getY()+1);
+                }
+                validarFronteras(FanNaranja);
+            }
+        }
+    }
+    
+    public void movimientoFantasmaRosa(FiguraEstandar fanRosa){
+        if (fanRosa instanceof Imagen){
+            if (((Imagen) fanRosa).getRuta().equals("src/recursosPacman/fantasmaRosa.png")) {
+                if (fanRosa.isDireccionAdelante() == true){
+                    fanRosa.setX(fanRosa.getX()+1);
+                } else {
+                    fanRosa.setX(fanRosa.getX()-1);
+                }
+                validarFronteras(fanRosa);
+            }
+        }
+    }
+    
+    public void movimientoFantasmaRojo(FiguraEstandar FanRojo){
+        if (FanRojo instanceof Imagen){
+            if (((Imagen) FanRojo).getRuta().equals("src/recursosPacman/fantasmaRojo.png")) {
+                if (FanRojo.isDireccionAdelante() != true){
+                    FanRojo.setX(FanRojo.getX()-1);
+                } else {
+                    FanRojo.setX(FanRojo.getX()+1);
+                }
+                validarFronteras(FanRojo);
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,6 +237,8 @@ public class Lienzo extends javax.swing.JPanel {
     public void setEstaJugando(boolean estaJugando) {
         this.estaJugando = estaJugando;
     }
+
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

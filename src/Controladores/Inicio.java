@@ -22,28 +22,34 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         creacionEscenario();
-        Color backG= new Color(5,5,20);
-        this.lienzo1=new Lienzo();
-        this.lienzo1.setBackground(backG);
-        this.lienzo1.setVisible(true);
-        this.lienzo1.setSize(800, 500);
-        this.add(lienzo1);
+//        Color backG= new Color(5,5,20);
+//        this.lienzo1=new Lienzo();
+//        this.lienzo1.setBackground(backG);
+//        this.lienzo1.setVisible(true);
+//        this.lienzo1.setSize(800, 500);
+//        this.add(lienzo1);
+        Thread proceso=new Thread(this.lienzo1);
+        this.lienzo1.setEstaJugando(true);
+        proceso.start();
     }
+    
     public void creacionEscenario(){
-        this.pacman = new Imagen(29, 29, 311, 389, "src/recursosPacman/pacman.png", true, true, false);
+        this.pacman = new Imagen(25, 25, 313, 393, "src/recursosPacman/pacman.png", true, true, false);
         this.lienzo1.getFiguras().add(pacman);
         fantasmas();
         laberinto();
     }
+    
     public void laberinto(){
         bordesLaberinto();
         rellenoLaberinto();
     }
+    
     public void fantasmas(){
-        Imagen FanRojo= new Imagen(25, 25, 752, 22, "src/recursosPacman/fantasmaRojo.png", true, true, true) ;
-        Imagen FanNaranja= new Imagen(25, 25, 752, 452, "src/recursosPacman/fantasmaNaranja.png", true, true, true) ;
-        Imagen FanRosa= new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, true, true) ;
-        Imagen FanVerde= new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", true, true, true) ;
+        Imagen FanRojo= new Imagen(25, 25, 752, 22, "src/recursosPacman/fantasmaRojo.png", false, false, true) ;
+        Imagen FanNaranja= new Imagen(25, 25, 752, 452, "src/recursosPacman/fantasmaNaranja.png", false, false, true) ;
+        Imagen FanRosa= new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, false, true) ;
+        Imagen FanVerde= new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", false, true, true) ;
         
         this.lienzo1.getFiguras().add(FanRojo);
         this.lienzo1.getFiguras().add(FanNaranja);
@@ -51,6 +57,7 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(FanVerde);
 
     }
+    
     public void disparar(){
         Imagen Ectoplasma= new Imagen(12, 12, 22, 22, "src/recursosPacman/fantasmaVerde.png", true, true, true) ;
         
@@ -67,10 +74,12 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(bordeSup);
         this.lienzo1.getFiguras().add(bordeDer);
     }
+    
     public void rellenoLaberinto(){
         horizontales();
         verticales();
     }
+    
     public void horizontales(){
         Rectangulo R1 = new Rectangulo(50, 50, Color.blue, Color.blue, 83, 30, true, true);
         Rectangulo R2 = new Rectangulo(50, 110, Color.blue, Color.blue, 139, 30, true, true);
@@ -170,6 +179,11 @@ public class Inicio extends javax.swing.JFrame {
         lienzo1 = new Controladores.Lienzo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         lienzo1.setBackground(new java.awt.Color(5, 5, 20));
         lienzo1.setForeground(new java.awt.Color(5, 5, 20));
@@ -202,6 +216,49 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        this.setFocusable(true);
+            if (evt.getKeyChar()=='w') {
+                while(this.lienzo1.verificarColisiones(pacman) != true){
+                    this.pacman.setY(this.pacman.getY()-1);
+                    
+                    this.pacman.actualizarArea();
+                    repaint();
+                    this.lienzo1.esperar(1);
+                }
+            } else if (evt.getKeyChar()=='a'){
+                while(this.lienzo1.verificarColisiones(pacman) != true){
+                    this.pacman.setX(this.pacman.getX()-1);
+                    
+                    this.pacman.actualizarArea();
+                    repaint();
+                    this.lienzo1.esperar(1);
+                }
+                
+            } else if (evt.getKeyChar()=='s'){
+                while(this.lienzo1.verificarColisiones(pacman) != true){
+                    this.pacman.setY(this.pacman.getY()+1);
+                    
+                    this.pacman.actualizarArea();
+                    repaint();
+                    this.lienzo1.esperar(1);
+                }
+                
+            } else if (evt.getKeyChar()=='d'){
+                while(this.lienzo1.verificarColisiones(pacman) != true){
+                    this.pacman.setX(this.pacman.getX()+1);
+                    
+                    this.pacman.actualizarArea();
+                    repaint();
+                    this.lienzo1.esperar(1);
+                }
+                
+            }
+        
+        
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
