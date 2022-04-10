@@ -195,6 +195,9 @@ public class Inicio extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
         });
 
         lienzo1.setBackground(new java.awt.Color(5, 5, 20));
@@ -233,14 +236,15 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         this.setFocusable(true);
-        int time=0;
+        
         
         System.out.println(evt.getKeyChar());
             if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyChar()=='w' ||evt.getKeyChar()=='W'  ) {
                 while(this.lienzo1.verificarColisiones(pacman) != true){
+                    
                     this.pacman.setY(this.pacman.getY()-1);
                     repaint();
-                    this.lienzo1.esperar(time);
+                    
                     
                 }
                 this.pacman.setY(this.pacman.getY()+1);
@@ -249,7 +253,7 @@ public class Inicio extends javax.swing.JFrame {
             } else if (evt.getKeyCode()==KeyEvent.VK_LEFT || evt.getKeyChar()=='a'||evt.getKeyChar()=='A'){
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setX(this.pacman.getX()-1);
-                    this.lienzo1.esperar(time);
+                    
                     repaint();
                     
                     
@@ -262,7 +266,7 @@ public class Inicio extends javax.swing.JFrame {
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                       
                     this.pacman.setY(this.pacman.getY()+1);
-                    this.lienzo1.esperar(time);
+                    
                     repaint();
                     
                 }
@@ -273,7 +277,7 @@ public class Inicio extends javax.swing.JFrame {
             } else if (evt.getKeyCode()==KeyEvent.VK_RIGHT || evt.getKeyChar()=='d'||evt.getKeyChar()=='D'){
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setX(this.pacman.getX()+1);
-                    this.lienzo1.esperar(time);
+                   
                     repaint();
                 }
                 this.pacman.setX(this.pacman.getX()-1);
@@ -282,6 +286,10 @@ public class Inicio extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_formKeyPressed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyTyped
 
     /**
      * @param args the command line arguments

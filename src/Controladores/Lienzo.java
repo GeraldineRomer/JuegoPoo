@@ -151,6 +151,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         boolean respuesta=false;
         int i=0;
         jugador.actualizarArea();
+        jugador.actualizarPosiciones();
         while(i<this.figuras.size() && !respuesta){
             
             if (jugador!=this.figuras.get(i) && jugador.getArea().intersects(this.figuras.get(i).getArea())) {
@@ -176,6 +177,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 validarFronteras(fanVerde);
             }
         }
+        fanVerde.actualizarPosiciones();
+        fanVerde.actualizarArea();
     }
     
     public void movimientoEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
@@ -188,19 +191,23 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 }
             }
         }
+        ectoplasmaVerde.actualizarArea();
+        ectoplasmaVerde.actualizarPosiciones();
     }
     
-    public void movimientoFantasmaNaranja(FiguraEstandar FanNaranja){
-        if (FanNaranja instanceof Imagen){
-            if (((Imagen) FanNaranja).getRuta().equals("src/recursosPacman/fantasmaNaranja.png")) {
-                if (FanNaranja.isDireccionArriba() != true){
-                    FanNaranja.setY(FanNaranja.getY()-1);
+    public void movimientoFantasmaNaranja(FiguraEstandar fanNaranja){
+        if (fanNaranja instanceof Imagen){
+            if (((Imagen) fanNaranja).getRuta().equals("src/recursosPacman/fantasmaNaranja.png")) {
+                if (fanNaranja.isDireccionArriba() != true){
+                    fanNaranja.setY(fanNaranja.getY()-1);
                 } else {
-                    FanNaranja.setY(FanNaranja.getY()+1);
+                    fanNaranja.setY(fanNaranja.getY()+1);
                 }
-                validarFronteras(FanNaranja);
+                validarFronteras(fanNaranja);
             }
         }
+        fanNaranja.actualizarPosiciones();
+        fanNaranja.actualizarArea();
     }
     
     public void movimientoFantasmaRosa(FiguraEstandar fanRosa){
@@ -214,19 +221,23 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 validarFronteras(fanRosa);
             }
         }
+        fanRosa.actualizarPosiciones();
+        fanRosa.actualizarArea();
     }
     
-    public void movimientoFantasmaRojo(FiguraEstandar FanRojo){
-        if (FanRojo instanceof Imagen){
-            if (((Imagen) FanRojo).getRuta().equals("src/recursosPacman/fantasmaRojo.png")) {
-                if (FanRojo.isDireccionAdelante() != true){
-                    FanRojo.setX(FanRojo.getX()-1);
+    public void movimientoFantasmaRojo(FiguraEstandar fanRojo){
+        if (fanRojo instanceof Imagen){
+            if (((Imagen) fanRojo).getRuta().equals("src/recursosPacman/fantasmaRojo.png")) {
+                if (fanRojo.isDireccionAdelante() != true){
+                    fanRojo.setX(fanRojo.getX()-1);
                 } else {
-                    FanRojo.setX(FanRojo.getX()+1);
+                    fanRojo.setX(fanRojo.getX()+1);
                 }
-                validarFronteras(FanRojo);
+                validarFronteras(fanRojo);
             }
         }
+        fanRojo.actualizarPosiciones();
+        fanRojo.actualizarArea();
     }
     
     
