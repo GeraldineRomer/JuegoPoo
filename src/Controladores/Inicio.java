@@ -9,6 +9,7 @@ import Clases.Cuadrado;
 import Clases.Imagen;
 import Clases.Rectangulo;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -234,8 +235,8 @@ public class Inicio extends javax.swing.JFrame {
         this.setFocusable(true);
         int time=0;
         
-//        System.out.println(evt.getKeyChar());
-            if (evt.getKeyChar()=='w') {
+        System.out.println(evt.getKeyChar());
+            if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyChar()=='w' ||evt.getKeyChar()=='W'  ) {
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setY(this.pacman.getY()-1);
                     repaint();
@@ -245,7 +246,7 @@ public class Inicio extends javax.swing.JFrame {
                 this.pacman.setY(this.pacman.getY()+1);
             
             
-            } else if (evt.getKeyChar()=='a'){
+            } else if (evt.getKeyCode()==KeyEvent.VK_LEFT || evt.getKeyChar()=='a'||evt.getKeyChar()=='A'){
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setX(this.pacman.getX()-1);
                     this.lienzo1.esperar(time);
@@ -255,7 +256,7 @@ public class Inicio extends javax.swing.JFrame {
                 }
                 this.pacman.setX(this.pacman.getX()+1);
                 
-            } else if (evt.getKeyChar()=='s'){
+            } else if (evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyChar()=='s'||evt.getKeyChar()=='S'){
                 
 //                System.out.println(this.lienzo1.verificarColisiones(pacman));
                 while(this.lienzo1.verificarColisiones(pacman) != true){
@@ -269,11 +270,9 @@ public class Inicio extends javax.swing.JFrame {
                
                 this.pacman.setY(this.pacman.getY()-1);
                 
-            } else if (evt.getKeyChar()=='d'){
+            } else if (evt.getKeyCode()==KeyEvent.VK_RIGHT || evt.getKeyChar()=='d'||evt.getKeyChar()=='D'){
                 while(this.lienzo1.verificarColisiones(pacman) != true){
                     this.pacman.setX(this.pacman.getX()+1);
-                    System.out.println("entra d");
-                    System.out.println(evt.getKeyChar());
                     this.lienzo1.esperar(time);
                     repaint();
                 }
