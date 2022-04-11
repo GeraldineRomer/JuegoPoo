@@ -93,8 +93,10 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         movimientoFantasmaRosa((FiguraEstandar)figuraActual);
                         movimientoFantasmaNaranja((FiguraEstandar)figuraActual);
                         movimientoFantasmaRojo((FiguraEstandar)figuraActual);
-                        disparar((FiguraEstandar)figuraActual);
-//                        movimientoEctoplasmaVerde((FiguraEstandar)figuraActual);
+                        dispararEctoplasmaVerde((FiguraEstandar)figuraActual);
+                        dispararEctoplasmaRosa((FiguraEstandar)figuraActual);
+                        dispararEctoplasmaNaranja((FiguraEstandar)figuraActual);
+                        dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
                     } 
                 }
             }
@@ -118,9 +120,9 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         }
     }
     
-    public boolean validarFronterasEctoplasma(FiguraEstandar laFigura){
+    public boolean validarFronterasEctoplasma(FiguraEstandar laFigura,String idFigura){
         if (laFigura instanceof Imagen){
-            if (((Imagen) laFigura).getRuta().equals("src/recursosPacman/ectoplasma.png")){
+            if (((Imagen) laFigura).getId().equals(idFigura)){
                 if (laFigura.getX()>=800) {
                     return true;
                 } else if (laFigura.getX()<=0){
@@ -178,41 +180,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         return fanVerde.getY();
     }
     
-    public boolean movimientoEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
-        if (ectoplasmaVerde instanceof Imagen){
-            if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")) {
-                if (ectoplasmaVerde.isDireccionAdelante() == true){
-                    ectoplasmaVerde.setX(ectoplasmaVerde.getX()+1);
-                } else {
-                    ectoplasmaVerde.setX(ectoplasmaVerde.getX()-1);
-                }
-            }
-        }
-        return validarFronterasEctoplasma(ectoplasmaVerde);
-    }
-    
-    public void disparar(FiguraEstandar ectoplasmaVerde){
-        if (ectoplasmaVerde instanceof Imagen){
-            if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")){
-                if (movimientoEctoplasmaVerde(ectoplasmaVerde)){
-                    for(FiguraGeometrica actual:this.figuras){
-                        if (actual instanceof Imagen){
-                            if (actual.getId().equals("FanVerde")){
-                                System.out.println("entra");
-                                ectoplasmaVerde.setY(movimientoFantasmaVerde(((Imagen) actual)));
-                                ectoplasmaVerde.setX(((Imagen) actual).getX());
-                                System.out.println(movimientoFantasmaVerde(((Imagen) actual)));
-                            }
-                        }
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    
-    public void movimientoFantasmaNaranja(FiguraEstandar fanNaranja){
+    public int movimientoFantasmaNaranja(FiguraEstandar fanNaranja){
         if (fanNaranja instanceof Imagen){
             if (((Imagen) fanNaranja).getRuta().equals("src/recursosPacman/fantasmaNaranja.png")) {
                 if (fanNaranja.isDireccionArriba() != true){
@@ -225,9 +193,10 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         }
         fanNaranja.actualizarPosiciones();
         fanNaranja.actualizarArea();
+        return fanNaranja.getY();
     }
     
-    public void movimientoFantasmaRosa(FiguraEstandar fanRosa){
+    public int movimientoFantasmaRosa(FiguraEstandar fanRosa){
         if (fanRosa instanceof Imagen){
             if (((Imagen) fanRosa).getRuta().equals("src/recursosPacman/fantasmaRosa.png")) {
                 if (fanRosa.isDireccionAdelante() == true){
@@ -240,9 +209,10 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         }
         fanRosa.actualizarPosiciones();
         fanRosa.actualizarArea();
+        return fanRosa.getX();
     }
     
-    public void movimientoFantasmaRojo(FiguraEstandar fanRojo){
+    public int movimientoFantasmaRojo(FiguraEstandar fanRojo){
         if (fanRojo instanceof Imagen){
             if (((Imagen) fanRojo).getRuta().equals("src/recursosPacman/fantasmaRojo.png")) {
                 if (fanRojo.isDireccionAdelante() != true){
@@ -255,6 +225,132 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         }
         fanRojo.actualizarPosiciones();
         fanRojo.actualizarArea();
+        return fanRojo.getX();
+    }
+    
+    public boolean movimientoEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
+        if (ectoplasmaVerde instanceof Imagen){
+            if (((Imagen) ectoplasmaVerde).getId().equals("ectoPlasmaVerde")) {
+                if (ectoplasmaVerde.isDireccionAdelante() == true){
+                    ectoplasmaVerde.setX(ectoplasmaVerde.getX()+1);
+                } else {
+                    ectoplasmaVerde.setX(ectoplasmaVerde.getX()-1);
+                }
+            }
+        }
+        return validarFronterasEctoplasma(ectoplasmaVerde,"ectoPlasmaVerde");
+    }
+    
+    public boolean movimientoEctoplasmaRosa(FiguraEstandar ectoplasmaRosa){
+        if (ectoplasmaRosa instanceof Imagen){
+            if (((Imagen) ectoplasmaRosa).getId().equals("ectoPlasmaRosa")) {
+                if (ectoplasmaRosa.isDireccionArriba() == true){
+                    ectoplasmaRosa.setY(ectoplasmaRosa.getY()-1);
+                } else {
+                    ectoplasmaRosa.setY(ectoplasmaRosa.getY()+1);
+                }
+            }
+        }
+        return validarFronterasEctoplasma(ectoplasmaRosa,"ectoPlasmaRosa");
+    }
+    
+    public boolean movimientoEctoplasmaNaranja(FiguraEstandar ectoplasmaNaranja){
+        if (ectoplasmaNaranja instanceof Imagen){
+            if (((Imagen) ectoplasmaNaranja).getId().equals("ectoPlasmaNaranja")) {
+                if (ectoplasmaNaranja.isDireccionAdelante() != true){
+                    ectoplasmaNaranja.setX(ectoplasmaNaranja.getX()-1);
+                } else {
+                    ectoplasmaNaranja.setX(ectoplasmaNaranja.getX()+1);
+                }
+            }
+        }
+        return validarFronterasEctoplasma(ectoplasmaNaranja,"ectoPlasmaNaranja");
+    }
+    
+    public boolean movimientoEctoplasmaRojo(FiguraEstandar ectoplasmaRojo){
+        if (ectoplasmaRojo instanceof Imagen){
+            if (((Imagen) ectoplasmaRojo).getId().equals("ectoPlasmaRojo")) {
+                if (ectoplasmaRojo.isDireccionArriba() != true){
+                    ectoplasmaRojo.setY(ectoplasmaRojo.getY()-1);
+                } else {
+                    ectoplasmaRojo.setY(ectoplasmaRojo.getY()+1);
+                }
+            }
+        }
+        return validarFronterasEctoplasma(ectoplasmaRojo,"ectoPlasmaRojo");
+    }
+    
+    public void dispararEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
+        if (ectoplasmaVerde instanceof Imagen){
+            if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")){
+                if (movimientoEctoplasmaVerde(ectoplasmaVerde)){
+                    for(FiguraGeometrica actual:this.figuras){
+                        if (actual instanceof Imagen){
+                            if (actual.getId().equals("FanVerde")){
+                                ectoplasmaVerde.setY(movimientoFantasmaVerde(((Imagen) actual)));
+                                ectoplasmaVerde.setX(((Imagen) actual).getX());
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    public void dispararEctoplasmaRosa(FiguraEstandar ectoplasmaRosa){
+        if (ectoplasmaRosa instanceof Imagen){
+            if (((Imagen) ectoplasmaRosa).getId().equals("ectoPlasmaRosa")){
+                if (movimientoEctoplasmaRosa(ectoplasmaRosa)){
+                    for(FiguraGeometrica actual:this.figuras){
+                        if (actual instanceof Imagen){
+                            if (actual.getId().equals("FanRosa")){
+                                ectoplasmaRosa.setX(movimientoFantasmaRosa(((Imagen) actual)));
+                                ectoplasmaRosa.setY(((Imagen) actual).getY());
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    public void dispararEctoplasmaNaranja(FiguraEstandar ectoplasmaNaranja){
+        if (ectoplasmaNaranja instanceof Imagen){
+            if (((Imagen) ectoplasmaNaranja).getId().equals("ectoPlasmaNaranja")){
+                if (movimientoEctoplasmaNaranja(ectoplasmaNaranja)){
+                    for(FiguraGeometrica actual:this.figuras){
+                        if (actual instanceof Imagen){
+                            if (actual.getId().equals("fanNaranja")){
+                                ectoplasmaNaranja.setY(movimientoFantasmaNaranja(((Imagen) actual)));
+                                ectoplasmaNaranja.setX(((Imagen) actual).getX());
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    
+    public void dispararEctoplasmaRojo(FiguraEstandar ectoplasmaRojo){
+        if (ectoplasmaRojo instanceof Imagen){
+            if (((Imagen) ectoplasmaRojo).getId().equals("ectoPlasmaRojo")){
+                if (movimientoEctoplasmaRojo(ectoplasmaRojo)){
+                    for(FiguraGeometrica actual:this.figuras){
+                        if (actual instanceof Imagen){
+                            if (actual.getId().equals("fanRojo")){
+                                ectoplasmaRojo.setX(movimientoFantasmaRojo(((Imagen) actual)));
+                                ectoplasmaRojo.setY(((Imagen) actual).getY());
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
     }
     
     

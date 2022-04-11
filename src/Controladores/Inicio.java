@@ -54,8 +54,16 @@ public class Inicio extends javax.swing.JFrame {
         Imagen FanRosa= new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, false, true,"FanRosa") ;
         Imagen FanVerde= new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", false, true, true,"FanVerde") ;
         
-        Imagen Ectoplasma= new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasma.png", true, false, true,"ectoPlasma") ;
-        this.lienzo1.getFiguras().add(Ectoplasma);
+        Imagen EctoplasmaVerde= new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasma.png", true, false, true,"ectoPlasmaVerde") ;
+        Imagen EctoplasmaRosa= new Imagen(20, 20, FanRosa.getX(), FanRosa.getY(), "src/recursosPacman/ectoplasma.png", true, true, true,"ectoPlasmaRosa") ;
+        Imagen EctoplasmaNaranja= new Imagen(20, 20, FanNaranja.getX(), FanNaranja.getY(), "src/recursosPacman/ectoplasma.png", false, false, true,"ectoPlasmaNaranja") ;
+        Imagen EctoplasmaRojo= new Imagen(20, 20, FanRojo.getX(), FanRojo.getY(), "src/recursosPacman/ectoplasma.png", true, true, true,"ectoPlasmaRojo") ;
+        
+        
+        this.lienzo1.getFiguras().add(EctoplasmaVerde);
+        this.lienzo1.getFiguras().add(EctoplasmaRosa);
+        this.lienzo1.getFiguras().add(EctoplasmaNaranja);
+        this.lienzo1.getFiguras().add(EctoplasmaRojo);
         
         //disparar(FanVerde);
         
@@ -68,14 +76,7 @@ public class Inicio extends javax.swing.JFrame {
         
     }
     
-    public void disparar(Imagen fantasma){
-        Imagen Ectoplasma= new Imagen(20, 20, fantasma.getX(), fantasma.getY(), "src/recursosPacman/ectoplasma.png", true, false, true,"ectoPlasma") ;
-        this.lienzo1.getFiguras().add(Ectoplasma);
-        
-        if(this.lienzo1.validarFronterasEctoplasma(Ectoplasma) == true){
-            System.out.println("entra");
-        }
-    }
+    
     
     public void bordesLaberinto(){
         Rectangulo bordeIzda = new Rectangulo(0, 0, Color.blue, Color.blue, 20, 500, true, true,"bordeIzda");
