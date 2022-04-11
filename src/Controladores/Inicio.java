@@ -241,7 +241,7 @@ public class Inicio extends javax.swing.JFrame {
         System.out.println(evt.getKeyChar());
             if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyChar()=='w' ||evt.getKeyChar()=='W'  ) {
                 while(this.lienzo1.verificarColisiones(pacman) != true){
-                    
+                   
                     this.pacman.setY(this.pacman.getY()-1);
                     repaint();
                     
