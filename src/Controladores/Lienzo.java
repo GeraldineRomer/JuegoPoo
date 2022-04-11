@@ -93,6 +93,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         movimientoFantasmaRosa((FiguraEstandar)figuraActual);
                         movimientoFantasmaNaranja((FiguraEstandar)figuraActual);
                         movimientoFantasmaRojo((FiguraEstandar)figuraActual);
+//                        repeticion((FiguraEstandar)figuraActual, (FiguraEstandar)figuraActual);
                         disparar((FiguraEstandar)figuraActual, (FiguraEstandar)figuraActual);
 //                        movimientoEctoplasmaVerde((FiguraEstandar)figuraActual);
                     } 
@@ -187,15 +188,23 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         if (ectoplasmaVerde instanceof Imagen){
             if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")){
                 if (movimientoEctoplasmaVerde(ectoplasmaVerde)){
+                    System.out.println(movimientoEctoplasmaVerde(ectoplasmaVerde));
                     if (fanVerde instanceof Imagen){
                         if (((Imagen) fanVerde).getRuta().equals("src/recursosPacman/fantasmaVerde.png")){
                             ectoplasmaVerde.setY(movimientoFantasmaVerde(fanVerde));
+                            System.out.println(movimientoFantasmaVerde(fanVerde));
                         }
                     }
                 }
             }
         }
-        
+    }
+    
+    public void repeticion (FiguraEstandar fanVerde,FiguraEstandar ectoplasma){
+        do{
+            disparar(fanVerde, ectoplasma);
+//            movimientoEctoplasmaVerde(ectoplasma);
+        } while(ectoplasma.getX() >= 800);
     }
     
     public void movimientoFantasmaNaranja(FiguraEstandar FanNaranja){
