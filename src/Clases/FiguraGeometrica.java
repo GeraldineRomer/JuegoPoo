@@ -19,18 +19,22 @@ public abstract class FiguraGeometrica {
     private boolean direccionArriba;
     private boolean maquina;
     private Rectangle area;
+    private String id;
 
     public FiguraGeometrica() {
     }
 
-    public FiguraGeometrica(Color borde, Color colorRelleno, boolean direccionAdelante, boolean direccionArriba, boolean maquina) {
+    public FiguraGeometrica(Color borde, Color colorRelleno, boolean direccionAdelante, boolean direccionArriba, boolean maquina, String id) {
         this.borde = borde;
         this.colorRelleno = colorRelleno;
         this.direccionAdelante = direccionAdelante;
         this.direccionArriba = direccionArriba;
         this.maquina = maquina;
         this.area = null;
+        this.id = id;
     }
+
+   
 
     public abstract void actualizarArea();
     public abstract void actualizarPosiciones(int x,int y);
@@ -117,6 +121,20 @@ public abstract class FiguraGeometrica {
      */
     public void setArea(Rectangle area) {
         this.area = area;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
     
     

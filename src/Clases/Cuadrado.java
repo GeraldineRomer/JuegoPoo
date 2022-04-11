@@ -16,11 +16,11 @@ public class Cuadrado extends FiguraEstandar{
     private int lado;
 
     public Cuadrado() {
-        super(0, 0, null, null,true,true,false);
+        super(0, 0, null, null,true,true,false,"");
     }
 
-    public Cuadrado( int x, int y, Color borde, Color colorRelleno, int lado,boolean direccionAdelante, boolean direccionArriba,boolean maquina) {
-        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,maquina);
+    public Cuadrado( int x, int y, Color borde, Color colorRelleno, int lado,boolean direccionAdelante, boolean direccionArriba,boolean maquina,String id) {
+        super(x, y, borde, colorRelleno, direccionAdelante, direccionArriba,maquina,id);
         this.lado = lado;
         Rectangle area=new Rectangle(x, y, lado, lado);
         this.setArea(area);

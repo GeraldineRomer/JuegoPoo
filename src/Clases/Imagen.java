@@ -17,8 +17,8 @@ public class Imagen extends FiguraEstandar{
     private int ancho;
     private int alto;
 
-    public Imagen( int ancho, int alto, int x, int y,String ruta, boolean direccionAdelante, boolean direccionArriba,boolean maquina) {
-        super(x, y, direccionAdelante, direccionArriba,maquina);
+    public Imagen( int ancho, int alto, int x, int y,String ruta, boolean direccionAdelante, boolean direccionArriba,boolean maquina,String id) {
+        super(x, y, direccionAdelante, direccionArriba,maquina,id);
         this.ruta = ruta;
         this.ancho = ancho;
         this.alto = alto;
