@@ -70,7 +70,7 @@ public class Rectangulo extends FiguraEstandar {
     }   
 
     @Override
-    public void actualizarPosiciones(int x,int y) {
+    public void actualizarPosiciones() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

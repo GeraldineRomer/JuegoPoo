@@ -54,7 +54,7 @@ public class Inicio extends javax.swing.JFrame {
         Imagen FanRosa= new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, false, true,"FanRosa") ;
         Imagen FanVerde= new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", false, true, true,"FanVerde") ;
         
-        Imagen Ectoplasma= new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasma.png", true, false, true) ;
+        Imagen Ectoplasma= new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasma.png", true, false, true,"ectoPlasma") ;
         this.lienzo1.getFiguras().add(Ectoplasma);
         
         //disparar(FanVerde);
