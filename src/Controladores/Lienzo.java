@@ -30,6 +30,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     private int punto;
      private LinkedList <JLabel> text; 
      private LinkedList <FiguraGeometrica> basurero;
+     private String lastKey;
     
     /**
      * Creates new form Lienzo
@@ -41,6 +42,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         this.punto=0;
         this.text = new LinkedList<>();
         this.basurero = new LinkedList<>();
+        this.lastKey="";
     }
     
     @Override
@@ -104,22 +106,20 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         dispararEctoplasmaRosa((FiguraEstandar)figuraActual);
                         dispararEctoplasmaNaranja((FiguraEstandar)figuraActual);
                         dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
-//                        ColisionMapaDesdeArriba((FiguraEstandar)figuraActual);
-                       
                     }else{
-                         puntuacion((FiguraEstandar)figuraActual);
-                         
-//                        GameOver((FiguraEstandar)figuraActual);
+//                         GameOver((FiguraEstandar)figuraActual);
+                        sacarPacmanPared((FiguraEstandar)figuraActual);
+                        puntuacion((FiguraEstandar)figuraActual);      
+                     
                     } 
                 }
             }
-            this.figuras.removeAll(this.basurero);
+            this.getFiguras().removeAll(this.getBasurero());
             repaint();
             esperar(5);
         }
-        if(this.isEstaJugando()== false){
-            
-            JOptionPane.showMessageDialog(this, "game over");
+        if(this.isEstaJugando()== false){  
+            JOptionPane.showMessageDialog(this, "pause");
         }
     }
     
@@ -163,13 +163,15 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             Logger.getLogger(Lienzo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public Rectangulo ColisionMapa(FiguraEstandar jugador){
+    
+    public Rectangulo paredColisionada(FiguraEstandar jugador){
         Rectangulo respuesta=null;
-        if(ColisionObjeto(jugador) instanceof Rectangulo){
-            respuesta=((Rectangulo)ColisionObjeto(jugador));
+        if(objetoColisionado(jugador) instanceof Rectangulo){
+            respuesta=((Rectangulo)objetoColisionado(jugador));
         }
         return respuesta;
     }
+    
     public boolean verificarColisiones(FiguraGeometrica jugador){
         boolean respuesta=false;
         int i=0;
@@ -182,7 +184,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }
             if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea()) && !aux ) {
                 respuesta=true;
-                System.out.println(this.getFiguras().get(i).getId());
+//                System.out.println(this.getFiguras().get(i).getId());
             }
             i++;
 //            System.out.println(respuesta);
@@ -191,47 +193,57 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         return respuesta;
         
     }
-        
     
-    public void puntuacion(FiguraEstandar Jugador){
-        
-        if ( ColisionObjeto(Jugador) instanceof Circulo){
-            this.setPunto(this.getPunto() + 1);
-            this.getText().get(0).setText(""+this.getPunto());
-            this.basurero.add(ColisionObjeto(Jugador));
-//            this.getFiguras().remove(ColisionObjeto(Jugador));
-                      
-        }
-        System.out.println(this.getPunto());
-    }
-        public FiguraEstandar ColisionObjeto(FiguraEstandar jugador){
-//        boolean respuesta=false;
-
-        FiguraEstandar objeto=null;
+    public boolean verificarColisionPared(FiguraEstandar jugador){
+        boolean respuesta=false;
         int i=0;
         jugador.actualizarArea();
         jugador.actualizarPosiciones();
-            
-        if(jugador.getId()=="pacman"){
-            
-            while(i<this.getFiguras().size() ){
-            
-            if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea())) {
-                //(respuesta=true;
-                
-                objeto=((FiguraEstandar)this.getFiguras().get(i));   
-                
-                
-                
+        
+        while(i<this.getFiguras().size() && !respuesta){
+            if(this.getFiguras().get(i) instanceof Rectangulo){
+//                
+                if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea())  ) {
+                respuesta=true;
+                System.out.println(this.getFiguras().get(i).getId());
             }
+            }
+            
             i++;
-            //System.out.println(respuesta);
+//            System.out.println(respuesta);
             
         }
+        return respuesta;
+        
+    
+    }
+   
+    public void puntuacion(FiguraEstandar Jugador){
+        
+        if ( objetoColisionado(Jugador) instanceof Circulo){
+            this.setPunto(this.getPunto() + 1);
+            this.getText().get(0).setText(""+this.getPunto());
+            this.getBasurero().add(objetoColisionado(Jugador));
+//            this.getFiguras().remove(ColisionObjeto(Jugador));
+                      
         }
-        
-        return objeto;
-        
+//        System.out.println(this.getPunto());
+    }
+    
+    public FiguraEstandar objetoColisionado(FiguraEstandar jugador){
+        FiguraEstandar objeto=null;
+        int i=0;
+        jugador.actualizarArea();
+        jugador.actualizarPosiciones();  
+        if(jugador.getId()=="pacman"){
+            while(i<this.getFiguras().size() ){
+            if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea())) {
+                objeto=((FiguraEstandar)this.getFiguras().get(i));      
+            }
+            i++;    
+        }
+        }
+        return objeto; 
     }
     
     public int movimientoFantasmaVerde(FiguraEstandar fanVerde){
@@ -421,12 +433,15 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }
         }
     }
+   
     public void GameOver(FiguraEstandar jugador){
-        if(ColisionObjeto(jugador) instanceof Imagen){
+        if(objetoColisionado(jugador) instanceof Imagen){
             this.setEstaJugando(false);
+            
         }
         
     }
+    
     public void movimientoArriba(FiguraEstandar jugador){
         if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
@@ -438,6 +453,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }
         }
     }
+    
     public void movimientoAbajo(FiguraEstandar jugador){
         if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
@@ -447,6 +463,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }
         }
     }
+   
     public void movimientoDerecha(FiguraEstandar jugador){
         if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
@@ -456,6 +473,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }
         }
     }
+   
     public void movimientoIzda(FiguraEstandar jugador){
         if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
@@ -465,15 +483,49 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }
         }
     }
-    public void sacarBloquesMovArriba(FiguraEstandar jugador){
-        if(jugador.getId()== "pacman"){
-            if(verificarColisiones(jugador) == true){
-                jugador.setY(ColisionMapa(jugador).getY() + ColisionMapa(jugador).getAlto() + 1);
-            }
-                
-
+    
+    public void sacarPacmanPared(FiguraEstandar jugador){
+        if(jugador.getId()== "pacman"){ 
+        Imagen imagenPac= (Imagen) jugador;
+        sacarBloquesHaciaAbajo(imagenPac);
+        sacarBloquesHaciaArriba(imagenPac);
+            sacarBloquesHaciaDerecha(imagenPac);
+            sacarBloquesHaciaIzda(imagenPac);
+    
         }
     }
+    public void sacarBloquesHaciaAbajo(Imagen jugador){
+        if(jugador.getId()== "pacman"){ 
+            if(verificarColisionPared(jugador) == true && this.lastKey == "w"){
+                jugador.setY(paredColisionada(jugador).getY() + paredColisionada(jugador).getAlto());
+            }        
+        }
+    }
+    public void sacarBloquesHaciaArriba(Imagen jugador){
+        if(jugador.getId()== "pacman"){ 
+            if(verificarColisionPared(jugador) == true && this.lastKey == "s"){
+                jugador.setY(paredColisionada(jugador).getY()- jugador.getAlto());
+            }        
+        }
+    }
+    public void sacarBloquesHaciaDerecha(Imagen jugador){
+        if(jugador.getId()== "pacman"){ 
+            if(verificarColisionPared(jugador) == true && this.lastKey == "a"){
+                System.out.println("colision "+ paredColisionada(jugador).getId());
+                jugador.setX(paredColisionada(jugador).getX() + paredColisionada(jugador).getAncho());
+            }        
+        }
+    }
+     public void sacarBloquesHaciaIzda(Imagen jugador){
+        if(jugador.getId()== "pacman"){ 
+            if(verificarColisionPared(jugador) == true && this.lastKey == "d"){
+                jugador.setX(paredColisionada(jugador).getX() - jugador.getAncho());
+            }        
+        }
+    }
+    
+    
+    
     
     
     
@@ -486,6 +538,12 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -497,6 +555,11 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_formKeyPressed
 
     
     /**
@@ -567,6 +630,20 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
      */
     public void setBasurero(LinkedList <FiguraGeometrica> basurero) {
         this.basurero = basurero;
+    }
+
+    /**
+     * @return the lastKey
+     */
+    public String getLastKey() {
+        return lastKey;
+    }
+
+    /**
+     * @param lastKey the lastKey to set
+     */
+    public void setLastKey(String lastKey) {
+        this.lastKey = lastKey;
     }
 
     

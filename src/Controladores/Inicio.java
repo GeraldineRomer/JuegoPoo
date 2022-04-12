@@ -271,12 +271,13 @@ public class Inicio extends javax.swing.JFrame {
         this.setFocusable(true);
         
         
-        System.out.println(evt.getKeyChar());
-System.out.println(evt.getKeyChar());
+//        System.out.println(evt.getKeyChar());
+                
         
         if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyChar() == 'w' || evt.getKeyChar() == 'W') {
 
             this.lienzo1.movimientoArriba(pacman);
+            this.lienzo1.setLastKey("w");
 //            if (this.lienzo1.verificarColisiones(pacman) != true) {
 //
 //                this.pacman.setY(this.pacman.getY() - 1);
@@ -289,6 +290,7 @@ System.out.println(evt.getKeyChar());
 
         } else if (evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
             this.lienzo1.movimientoIzda(pacman);
+            this.lienzo1.setLastKey("a");
 //            if (this.lienzo1.verificarColisiones(pacman) != true) {
 //                this.pacman.setX(this.pacman.getX() - 1);
 //
@@ -299,6 +301,7 @@ System.out.println(evt.getKeyChar());
 //            }
         } else if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyChar() == 's' || evt.getKeyChar() == 'S') {
             this.lienzo1.movimientoAbajo(pacman);
+            this.lienzo1.setLastKey("s");
 //                System.out.println(this.lienzo1.verificarColisiones(pacman));
 //            if (this.lienzo1.verificarColisiones(pacman) != true) {
 //
@@ -314,6 +317,7 @@ System.out.println(evt.getKeyChar());
 
         } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT || evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
             this.lienzo1.movimientoDerecha(pacman);
+            this.lienzo1.setLastKey("d");
 //            if (this.lienzo1.verificarColisiones(pacman) != true) {
 //                this.pacman.setX(this.pacman.getX() + 1);
 //
