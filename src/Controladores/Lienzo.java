@@ -107,9 +107,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
 //                        ColisionMapaDesdeArriba((FiguraEstandar)figuraActual);
                        
                     }else{
-                         puntuacion((FiguraEstandar)figuraActual);
-                         
-//                        GameOver((FiguraEstandar)figuraActual);
+                        puntuacion((FiguraEstandar)figuraActual);
+                        GameOver((FiguraEstandar)figuraActual);
                     } 
                 }
             }
