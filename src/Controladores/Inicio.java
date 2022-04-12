@@ -276,46 +276,49 @@ System.out.println(evt.getKeyChar());
         
         if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyChar() == 'w' || evt.getKeyChar() == 'W') {
 
-            if (this.lienzo1.verificarColisiones(pacman) != true) {
-
-                this.pacman.setY(this.pacman.getY() - 1);
-                repaint();
-
-            } else {
-
-                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() + this.lienzo1.ColisionMapa(pacman).getAlto() + 1);
-            }
+            this.lienzo1.movimientoArriba(pacman);
+//            if (this.lienzo1.verificarColisiones(pacman) != true) {
+//
+//                this.pacman.setY(this.pacman.getY() - 1);
+//                
+//
+//            } else {
+//
+//                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() + this.lienzo1.ColisionMapa(pacman).getAlto() + 1);
+//            }
 
         } else if (evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
-            if (this.lienzo1.verificarColisiones(pacman) != true) {
-                this.pacman.setX(this.pacman.getX() - 1);
-
-                repaint();
-
-            } else {
-                this.pacman.setX(this.pacman.getX() + 1);
-            }
+            this.lienzo1.movimientoIzda(pacman);
+//            if (this.lienzo1.verificarColisiones(pacman) != true) {
+//                this.pacman.setX(this.pacman.getX() - 1);
+//
+//                repaint();
+//
+//            } else {
+//                this.pacman.setX(this.pacman.getX() + 1);
+//            }
         } else if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyChar() == 's' || evt.getKeyChar() == 'S') {
-
+            this.lienzo1.movimientoAbajo(pacman);
 //                System.out.println(this.lienzo1.verificarColisiones(pacman));
-            if (this.lienzo1.verificarColisiones(pacman) != true) {
-
-                this.pacman.setY(this.pacman.getY() + 1);
-
-                repaint();
-
-            } else {
-
-                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() - pacman.getAlto() - 1);
-
-            }
+//            if (this.lienzo1.verificarColisiones(pacman) != true) {
+//
+//                this.pacman.setY(this.pacman.getY() + 1);
+//
+//                repaint();
+//
+//            } else {
+//
+//                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() - pacman.getAlto() - 1);
+//
+//            }
 
         } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT || evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
-            if (this.lienzo1.verificarColisiones(pacman) != true) {
-                this.pacman.setX(this.pacman.getX() + 1);
-
-                repaint();
-            }
+            this.lienzo1.movimientoDerecha(pacman);
+//            if (this.lienzo1.verificarColisiones(pacman) != true) {
+//                this.pacman.setX(this.pacman.getX() + 1);
+//
+//                repaint();
+//            }
 //                else{
 //                this.pacman.setX(this.pacman.getX()-1);
 //                }

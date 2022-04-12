@@ -29,6 +29,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     private boolean estaJugando;
     private int punto;
      private LinkedList <JLabel> text; 
+     private LinkedList <FiguraGeometrica> basurero;
     
     /**
      * Creates new form Lienzo
@@ -39,6 +40,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         this.estaJugando=false;
         this.punto=0;
         this.text = new LinkedList<>();
+        this.basurero = new LinkedList<>();
     }
     
     @Override
@@ -106,10 +108,12 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                        
                     }else{
                          puntuacion((FiguraEstandar)figuraActual);
+                         
 //                        GameOver((FiguraEstandar)figuraActual);
                     } 
                 }
             }
+            this.figuras.removeAll(this.basurero);
             repaint();
             esperar(5);
         }
@@ -193,8 +197,9 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         
         if ( ColisionObjeto(Jugador) instanceof Circulo){
             this.setPunto(this.getPunto() + 1);
-            this.text.get(0).setText(""+this.punto);
-            this.getFiguras().remove(ColisionObjeto(Jugador));
+            this.getText().get(0).setText(""+this.getPunto());
+            this.basurero.add(ColisionObjeto(Jugador));
+//            this.getFiguras().remove(ColisionObjeto(Jugador));
                       
         }
         System.out.println(this.getPunto());
@@ -422,6 +427,53 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         }
         
     }
+    public void movimientoArriba(FiguraEstandar jugador){
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
+            jugador.setY(jugador.getY() - 1);
+            repaint();
+            
+            }else{
+                jugador.setY(jugador.getY() + 1);
+            }
+        }
+    }
+    public void movimientoAbajo(FiguraEstandar jugador){
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
+            jugador.setY(jugador.getY() + 1);
+            repaint();
+            
+            }
+        }
+    }
+    public void movimientoDerecha(FiguraEstandar jugador){
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
+            jugador.setX(jugador.getX() + 1);
+            repaint();
+            
+            }
+        }
+    }
+    public void movimientoIzda(FiguraEstandar jugador){
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
+            jugador.setX(jugador.getX() - 1);
+            repaint();
+            
+            }
+        }
+    }
+    public void sacarBloquesMovArriba(FiguraEstandar jugador){
+        if(jugador.getId()== "pacman"){
+            if(verificarColisiones(jugador) == true){
+                jugador.setY(ColisionMapa(jugador).getY() + ColisionMapa(jugador).getAlto() + 1);
+            }
+                
+
+        }
+    }
     
     
     
@@ -501,6 +553,20 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
      */
     public void setText(LinkedList <JLabel> text) {
         this.text = text;
+    }
+
+    /**
+     * @return the basurero
+     */
+    public LinkedList <FiguraGeometrica> getBasurero() {
+        return basurero;
+    }
+
+    /**
+     * @param basurero the basurero to set
+     */
+    public void setBasurero(LinkedList <FiguraGeometrica> basurero) {
+        this.basurero = basurero;
     }
 
     
