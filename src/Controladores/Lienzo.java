@@ -17,6 +17,7 @@ import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +27,8 @@ import javax.swing.JOptionPane;
 public class Lienzo extends javax.swing.JPanel implements Runnable {
     private LinkedList <FiguraGeometrica> figuras;
     private boolean estaJugando;
+    private int punto;
+     private LinkedList <JLabel> text; 
     
     /**
      * Creates new form Lienzo
@@ -34,6 +37,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         initComponents();
         this.figuras=new LinkedList<>();
         this.estaJugando=false;
+        this.punto=0;
+        this.text = new LinkedList<>();
     }
     
     @Override
@@ -86,7 +91,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     @Override
     public void run() {
         while(this.isEstaJugando()){
-            for (FiguraGeometrica figuraActual:this.figuras) {
+            for (FiguraGeometrica figuraActual:this.getFiguras()) {
                 if(figuraActual instanceof FiguraEstandar){
                     if (figuraActual.isMaquina()){
                         movimientoFantasmaVerde((FiguraEstandar)figuraActual);
@@ -97,11 +102,20 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         dispararEctoplasmaRosa((FiguraEstandar)figuraActual);
                         dispararEctoplasmaNaranja((FiguraEstandar)figuraActual);
                         dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
+//                        ColisionMapaDesdeArriba((FiguraEstandar)figuraActual);
+                       
+                    }else{
+                         puntuacion((FiguraEstandar)figuraActual);
+//                        GameOver((FiguraEstandar)figuraActual);
                     } 
                 }
             }
             repaint();
             esperar(5);
+        }
+        if(this.isEstaJugando()== false){
+            
+            JOptionPane.showMessageDialog(this, "game over");
         }
     }
     
@@ -145,23 +159,73 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             Logger.getLogger(Lienzo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    public Rectangulo ColisionMapa(FiguraEstandar jugador){
+        Rectangulo respuesta=null;
+        if(ColisionObjeto(jugador) instanceof Rectangulo){
+            respuesta=((Rectangulo)ColisionObjeto(jugador));
+        }
+        return respuesta;
+    }
     public boolean verificarColisiones(FiguraGeometrica jugador){
         boolean respuesta=false;
         int i=0;
         jugador.actualizarArea();
         jugador.actualizarPosiciones();
-        while(i<this.figuras.size() && !respuesta){
-            
-            if (jugador!=this.figuras.get(i) && jugador.getArea().intersects(this.figuras.get(i).getArea())) {
+        boolean aux=false;
+        while(i<this.getFiguras().size() && !respuesta){
+            if(this.getFiguras().get(i) instanceof Circulo){
+                aux=true;
+            }
+            if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea()) && !aux ) {
                 respuesta=true;
-                System.out.println(this.figuras.get(i).getId());
+                System.out.println(this.getFiguras().get(i).getId());
             }
             i++;
-            System.out.println(respuesta);
+//            System.out.println(respuesta);
             
         }
         return respuesta;
+        
+    }
+        
+    
+    public void puntuacion(FiguraEstandar Jugador){
+        
+        if ( ColisionObjeto(Jugador) instanceof Circulo){
+            this.setPunto(this.getPunto() + 1);
+            this.text.get(0).setText(""+this.punto);
+            this.getFiguras().remove(ColisionObjeto(Jugador));
+                      
+        }
+        System.out.println(this.getPunto());
+    }
+        public FiguraEstandar ColisionObjeto(FiguraEstandar jugador){
+//        boolean respuesta=false;
+
+        FiguraEstandar objeto=null;
+        int i=0;
+        jugador.actualizarArea();
+        jugador.actualizarPosiciones();
+            
+        if(jugador.getId()=="pacman"){
+            
+            while(i<this.getFiguras().size() ){
+            
+            if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea())) {
+                //(respuesta=true;
+                
+                objeto=((FiguraEstandar)this.getFiguras().get(i));   
+                
+                
+                
+            }
+            i++;
+            //System.out.println(respuesta);
+            
+        }
+        }
+        
+        return objeto;
         
     }
     
@@ -284,7 +348,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         if (ectoplasmaVerde instanceof Imagen){
             if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")){
                 if (movimientoEctoplasmaVerde(ectoplasmaVerde)){
-                    for(FiguraGeometrica actual:this.figuras){
+                    for(FiguraGeometrica actual:this.getFiguras()){
                         if (actual instanceof Imagen){
                             if (actual.getId().equals("FanVerde")){
                                 ectoplasmaVerde.setY(movimientoFantasmaVerde(((Imagen) actual)));
@@ -302,7 +366,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         if (ectoplasmaRosa instanceof Imagen){
             if (((Imagen) ectoplasmaRosa).getId().equals("ectoPlasmaRosa")){
                 if (movimientoEctoplasmaRosa(ectoplasmaRosa)){
-                    for(FiguraGeometrica actual:this.figuras){
+                    for(FiguraGeometrica actual:this.getFiguras()){
                         if (actual instanceof Imagen){
                             if (actual.getId().equals("FanRosa")){
                                 ectoplasmaRosa.setX(movimientoFantasmaRosa(((Imagen) actual)));
@@ -320,7 +384,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         if (ectoplasmaNaranja instanceof Imagen){
             if (((Imagen) ectoplasmaNaranja).getId().equals("ectoPlasmaNaranja")){
                 if (movimientoEctoplasmaNaranja(ectoplasmaNaranja)){
-                    for(FiguraGeometrica actual:this.figuras){
+                    for(FiguraGeometrica actual:this.getFiguras()){
                         if (actual instanceof Imagen){
                             if (actual.getId().equals("fanNaranja")){
                                 ectoplasmaNaranja.setY(movimientoFantasmaNaranja(((Imagen) actual)));
@@ -339,7 +403,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         if (ectoplasmaRojo instanceof Imagen){
             if (((Imagen) ectoplasmaRojo).getId().equals("ectoPlasmaRojo")){
                 if (movimientoEctoplasmaRojo(ectoplasmaRojo)){
-                    for(FiguraGeometrica actual:this.figuras){
+                    for(FiguraGeometrica actual:this.getFiguras()){
                         if (actual instanceof Imagen){
                             if (actual.getId().equals("fanRojo")){
                                 ectoplasmaRojo.setX(movimientoFantasmaRojo(((Imagen) actual)));
@@ -351,6 +415,12 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 }
             }
         }
+    }
+    public void GameOver(FiguraEstandar jugador){
+        if(ColisionObjeto(jugador) instanceof Imagen){
+            this.setEstaJugando(false);
+        }
+        
     }
     
     
@@ -403,6 +473,34 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
      */
     public void setEstaJugando(boolean estaJugando) {
         this.estaJugando = estaJugando;
+    }
+
+    /**
+     * @return the punto
+     */
+    public int getPunto() {
+        return punto;
+    }
+
+    /**
+     * @param punto the punto to set
+     */
+    public void setPunto(int punto) {
+        this.punto = punto;
+    }
+
+    /**
+     * @return the text
+     */
+    public LinkedList <JLabel> getText() {
+        return text;
+    }
+
+    /**
+     * @param text the text to set
+     */
+    public void setText(LinkedList <JLabel> text) {
+        this.text = text;
     }
 
     

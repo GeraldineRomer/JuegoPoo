@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Clases.Circulo;
 import Clases.Cuadrado;
 import Clases.Imagen;
 import Clases.Rectangulo;
@@ -23,6 +24,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         creacionEscenario();
+        this.lienzo1.getText().add(this.lbPuntos);
 //        Color backG= new Color(5,5,20);
 //        this.lienzo1=new Lienzo();
 //        this.lienzo1.setBackground(backG);
@@ -30,94 +32,88 @@ public class Inicio extends javax.swing.JFrame {
 //        this.lienzo1.setSize(800, 500);
 //        this.add(lienzo1);
         
-        Thread proceso=new Thread(this.lienzo1);
-        this.lienzo1.setEstaJugando(true);
-        proceso.start();
+        ;
+        this.setFocusable(true);
     }
     
-    public void creacionEscenario(){
-        this.pacman = new Imagen(25, 25, 313, 393, "src/recursosPacman/pacman.png", true, true, false,"pacman");
+    public void creacionEscenario() {
+        this.pacman = new Imagen(25, 25, 313, 393, "src/recursosPacman/pacman.png", true, true, false, "pacman");
         this.lienzo1.getFiguras().add(pacman);
         laberinto();
         fantasmas();
-        
+
     }
-    
-    public void laberinto(){
+
+    public void laberinto() {
         bordesLaberinto();
         rellenoLaberinto();
+        bolitas();
     }
-    
-    public void fantasmas(){
-        Imagen FanRojo= new Imagen(25, 25, 752, 22, "src/recursosPacman/fantasmaRojo.png", false, false, true,"fanRojo") ;
-        Imagen FanNaranja= new Imagen(25, 25, 752, 452, "src/recursosPacman/fantasmaNaranja.png", false, false, true,"fanNaranja") ;
-        Imagen FanRosa= new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, false, true,"FanRosa") ;
-        Imagen FanVerde= new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", false, true, true,"FanVerde") ;
-        
-        Imagen EctoplasmaVerde= new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasma.png", true, false, true,"ectoPlasmaVerde") ;
-        Imagen EctoplasmaRosa= new Imagen(20, 20, FanRosa.getX(), FanRosa.getY(), "src/recursosPacman/ectoplasma.png", true, true, true,"ectoPlasmaRosa") ;
-        Imagen EctoplasmaNaranja= new Imagen(20, 20, FanNaranja.getX(), FanNaranja.getY(), "src/recursosPacman/ectoplasma.png", false, false, true,"ectoPlasmaNaranja") ;
-        Imagen EctoplasmaRojo= new Imagen(20, 20, FanRojo.getX(), FanRojo.getY(), "src/recursosPacman/ectoplasma.png", true, true, true,"ectoPlasmaRojo") ;
-        
-        
+
+    public void fantasmas() {
+        Imagen FanRojo = new Imagen(25, 25, 752, 22, "src/recursosPacman/fantasmaRojo.png", false, false, true, "fanRojo");
+        Imagen FanNaranja = new Imagen(25, 25, 752, 452, "src/recursosPacman/fantasmaNaranja.png", false, false, true, "fanNaranja");
+        Imagen FanRosa = new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, false, true, "FanRosa");
+        Imagen FanVerde = new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", false, true, true, "FanVerde");
+
+        Imagen EctoplasmaVerde = new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasma.png", true, false, true, "ectoPlasmaVerde");
+        Imagen EctoplasmaRosa = new Imagen(20, 20, FanRosa.getX(), FanRosa.getY(), "src/recursosPacman/ectoplasma.png", true, true, true, "ectoPlasmaRosa");
+        Imagen EctoplasmaNaranja = new Imagen(20, 20, FanNaranja.getX(), FanNaranja.getY(), "src/recursosPacman/ectoplasma.png", false, false, true, "ectoPlasmaNaranja");
+        Imagen EctoplasmaRojo = new Imagen(20, 20, FanRojo.getX(), FanRojo.getY(), "src/recursosPacman/ectoplasma.png", true, true, true, "ectoPlasmaRojo");
+
         this.lienzo1.getFiguras().add(EctoplasmaVerde);
         this.lienzo1.getFiguras().add(EctoplasmaRosa);
         this.lienzo1.getFiguras().add(EctoplasmaNaranja);
         this.lienzo1.getFiguras().add(EctoplasmaRojo);
-        
+
         //disparar(FanVerde);
-        
-        
         this.lienzo1.getFiguras().add(FanRojo);
         this.lienzo1.getFiguras().add(FanNaranja);
         this.lienzo1.getFiguras().add(FanRosa);
         this.lienzo1.getFiguras().add(FanVerde);
-        
-        
+
     }
-    
-    
-    
-    public void bordesLaberinto(){
-        Rectangulo bordeIzda = new Rectangulo(0, 0, Color.blue, Color.blue, 20, 500, true, true,"bordeIzda");
-        Rectangulo bordeInf = new Rectangulo(0,480, Color.blue, Color.blue, 800, 20, true, true,"bordeInf");
-        Rectangulo bordeSup = new Rectangulo(0, 0, Color.blue, Color.blue, 800, 20, true, true,"bordeSup");
-        Rectangulo bordeDer = new Rectangulo(780, 0, Color.blue, Color.blue, 20, 500, true, true,"bordeDer");
-        
+
+    public void bordesLaberinto() {
+        Rectangulo bordeIzda = new Rectangulo(0, 0, Color.blue, Color.blue, 20, 500, true, true, "bordeIzda");
+        Rectangulo bordeInf = new Rectangulo(0, 480, Color.blue, Color.blue, 800, 20, true, true, "bordeInf");
+        Rectangulo bordeSup = new Rectangulo(0, 0, Color.blue, Color.blue, 800, 20, true, true, "bordeSup");
+        Rectangulo bordeDer = new Rectangulo(780, 0, Color.blue, Color.blue, 20, 500, true, true, "bordeDer");
+
         this.lienzo1.getFiguras().add(bordeIzda);
         this.lienzo1.getFiguras().add(bordeInf);
         this.lienzo1.getFiguras().add(bordeSup);
         this.lienzo1.getFiguras().add(bordeDer);
     }
-    
-    public void rellenoLaberinto(){
+
+    public void rellenoLaberinto() {
         horizontales();
         verticales();
     }
-    
-    public void horizontales(){
-        Rectangulo R1 = new Rectangulo(50, 50, Color.blue, Color.blue, 83, 30, true, true,"R1");
-        Rectangulo R2 = new Rectangulo(50, 110, Color.blue, Color.blue, 139, 30, true, true,"R2");
-        Rectangulo R3 = new Rectangulo(50, 170, Color.blue, Color.blue, 139, 30, true, true,"R3");
-        Rectangulo R4 = new Rectangulo(50, 260, Color.blue, Color.blue, 139, 30, true, true,"R4");
-        Rectangulo R5 = new Rectangulo(50, 320, Color.blue, Color.blue, 139, 30, true, true,"R5");
-        Rectangulo R6 = new Rectangulo(50, 380, Color.blue, Color.blue, 139, 40, true, true,"R6");
-        Rectangulo R7 = new Rectangulo(246,140, Color.blue, Color.blue, 33, 32, true, true,"R7");
-        Rectangulo R8 = new Rectangulo(279, 49, Color.blue, Color.blue, 242, 16, true, true,"R8");
-        Rectangulo R9 = new Rectangulo(279, 80, Color.blue, Color.blue,242, 30, true, true,"R9");
-        Rectangulo R10 = new Rectangulo(309, 202, Color.blue, Color.blue, 182, 30, true, true,"R10");
-        Rectangulo R11 = new Rectangulo(309, 260, Color.blue, Color.blue, 182, 5, true, true,"R11");
-        Rectangulo R12 = new Rectangulo(309, 270, Color.blue, Color.blue, 182, 17, true, true,"R12");
-        Rectangulo R13 = new Rectangulo(340, 300, Color.blue, Color.blue, 120, 30, true, true,"R13");
-        Rectangulo R14 = new Rectangulo(305, 420, Color.blue, Color.blue, 190, 30, true, true,"R14");
-        Rectangulo R31 = new Rectangulo(521, 140, Color.blue, Color.blue, 33, 32, true, true,"R31");
-        Rectangulo R32 = new Rectangulo(667, 50, Color.blue, Color.blue, 83, 30, true, true,"R32");
-        Rectangulo R33 = new Rectangulo(611, 110, Color.blue, Color.blue, 139, 30, true, true,"R33");
-        Rectangulo R34 = new Rectangulo(611, 170, Color.blue, Color.blue, 139, 30, true, true,"R34");
-        Rectangulo R35 = new Rectangulo(611, 260, Color.blue, Color.blue, 139, 30, true, true,"R35");
-        Rectangulo R36 = new Rectangulo(611, 320, Color.blue, Color.blue, 139, 30, true, true,"R36");
-        Rectangulo R37 = new Rectangulo(611,380, Color.blue, Color.blue, 139, 40, true, true,"R37");
-         
+
+    public void horizontales() {
+        Rectangulo R1 = new Rectangulo(50, 50, Color.blue, Color.blue, 83, 30, true, true, "R1");
+        Rectangulo R2 = new Rectangulo(50, 110, Color.blue, Color.blue, 139, 30, true, true, "R2");
+        Rectangulo R3 = new Rectangulo(50, 170, Color.blue, Color.blue, 139, 30, true, true, "R3");
+        Rectangulo R4 = new Rectangulo(50, 260, Color.blue, Color.blue, 139, 30, true, true, "R4");
+        Rectangulo R5 = new Rectangulo(50, 320, Color.blue, Color.blue, 139, 30, true, true, "R5");
+        Rectangulo R6 = new Rectangulo(50, 380, Color.blue, Color.blue, 139, 40, true, true, "R6");
+        Rectangulo R7 = new Rectangulo(246, 140, Color.blue, Color.blue, 33, 32, true, true, "R7");
+        Rectangulo R8 = new Rectangulo(279, 49, Color.blue, Color.blue, 242, 16, true, true, "R8");
+        Rectangulo R9 = new Rectangulo(279, 80, Color.blue, Color.blue, 242, 30, true, true, "R9");
+        Rectangulo R10 = new Rectangulo(309, 202, Color.blue, Color.blue, 182, 30, true, true, "R10");
+        Rectangulo R11 = new Rectangulo(309, 260, Color.blue, Color.blue, 182, 5, true, true, "R11");
+        Rectangulo R12 = new Rectangulo(309, 270, Color.blue, Color.blue, 182, 17, true, true, "R12");
+        Rectangulo R13 = new Rectangulo(340, 300, Color.blue, Color.blue, 120, 30, true, true, "R13");
+        Rectangulo R14 = new Rectangulo(305, 420, Color.blue, Color.blue, 190, 30, true, true, "R14");
+        Rectangulo R31 = new Rectangulo(521, 140, Color.blue, Color.blue, 33, 32, true, true, "R31");
+        Rectangulo R32 = new Rectangulo(667, 50, Color.blue, Color.blue, 83, 30, true, true, "R32");
+        Rectangulo R33 = new Rectangulo(611, 110, Color.blue, Color.blue, 139, 30, true, true, "R33");
+        Rectangulo R34 = new Rectangulo(611, 170, Color.blue, Color.blue, 139, 30, true, true, "R34");
+        Rectangulo R35 = new Rectangulo(611, 260, Color.blue, Color.blue, 139, 30, true, true, "R35");
+        Rectangulo R36 = new Rectangulo(611, 320, Color.blue, Color.blue, 139, 30, true, true, "R36");
+        Rectangulo R37 = new Rectangulo(611, 380, Color.blue, Color.blue, 139, 40, true, true, "R37");
+
         this.lienzo1.getFiguras().add(R1);
         this.lienzo1.getFiguras().add(R2);
         this.lienzo1.getFiguras().add(R3);
@@ -139,28 +135,42 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(R35);
         this.lienzo1.getFiguras().add(R36);
         this.lienzo1.getFiguras().add(R37);
-        
-        
-        
-        
+
     }
-    public void verticales(){
-        Rectangulo R15 = new Rectangulo(163, 50, Color.blue, Color.blue, 26, 69, true, true,"R15");
-        Rectangulo R16 = new Rectangulo(80, 230, Color.blue, Color.blue, 30, 57, true, true,"R16");
-        Rectangulo R17 = new Rectangulo(99, 336, Color.blue, Color.blue, 30, 57, true, true,"R17");
-        Rectangulo R18 = new Rectangulo(219, 50, Color.blue, Color.blue, 30, 182, true, true,"R18");
-        Rectangulo R19 = new Rectangulo(219, 260, Color.blue, Color.blue, 30, 160, true, true,"R19");
-        Rectangulo R20 = new Rectangulo(309, 65, Color.blue, Color.blue, 30, 107, true, true,"R20");
-        Rectangulo R21 = new Rectangulo(279, 330, Color.blue, Color.blue, 31, 120, true, true,"R21");
-        Rectangulo R22 = new Rectangulo(366, 330, Color.blue, Color.blue, 4, 60, true, true,"R22");
-        Rectangulo R23 = new Rectangulo(430, 330, Color.blue, Color.blue, 4, 60, true, true,"R23");
-        Rectangulo R24 = new Rectangulo(461, 65, Color.blue, Color.blue, 30, 107, true, true,"R24");
-        Rectangulo R25 = new Rectangulo(490, 330, Color.blue, Color.blue, 31, 120, true, true,"R25");
-        Rectangulo R26 = new Rectangulo(551, 50, Color.blue, Color.blue, 30, 182, true, true,"R26");
-        Rectangulo R27 = new Rectangulo(551, 260, Color.blue, Color.blue, 30, 160, true, true,"R27");
-        Rectangulo R28 = new Rectangulo(611, 50, Color.blue, Color.blue, 26, 69, true, true,"R28");
-        Rectangulo R29 = new Rectangulo(690, 230, Color.blue, Color.blue, 30, 57, true, true,"R29");
-        Rectangulo R30 = new Rectangulo(671, 336, Color.blue, Color.blue, 30, 57, true, true,"R30");
+
+    public void bolitas() {
+        Circulo c1 = new Circulo(651, 243, Color.white, Color.white, 5, true, true, true, "c1");
+        Circulo c2 = new Circulo(531, 360, Color.white, Color.white, 5, true, true, true, "c2");
+        Circulo c3 = new Circulo(670, 430, Color.white, Color.white, 5, true, true, true, "c3");
+        Circulo c4 = new Circulo(110, 301, Color.white, Color.white, 5, true, true, true, "c4");
+        Circulo c5 = new Circulo(103, 202, Color.white, Color.white, 5, true, true, true, "c5");
+        Circulo c6 = new Circulo(395, 180, Color.white, Color.white, 5, true, true, true, "c6");
+        this.lienzo1.getFiguras().add(c1);
+        this.lienzo1.getFiguras().add(c2);
+        this.lienzo1.getFiguras().add(c3);
+        this.lienzo1.getFiguras().add(c4);
+        this.lienzo1.getFiguras().add(c5);
+        this.lienzo1.getFiguras().add(c6);
+
+    }
+
+    public void verticales() {
+        Rectangulo R15 = new Rectangulo(163, 50, Color.blue, Color.blue, 26, 69, true, true, "R15");
+        Rectangulo R16 = new Rectangulo(80, 230, Color.blue, Color.blue, 30, 57, true, true, "R16");
+        Rectangulo R17 = new Rectangulo(99, 336, Color.blue, Color.blue, 30, 57, true, true, "R17");
+        Rectangulo R18 = new Rectangulo(219, 50, Color.blue, Color.blue, 30, 182, true, true, "R18");
+        Rectangulo R19 = new Rectangulo(219, 260, Color.blue, Color.blue, 30, 160, true, true, "R19");
+        Rectangulo R20 = new Rectangulo(309, 65, Color.blue, Color.blue, 30, 107, true, true, "R20");
+        Rectangulo R21 = new Rectangulo(279, 330, Color.blue, Color.blue, 31, 120, true, true, "R21");
+        Rectangulo R22 = new Rectangulo(366, 330, Color.blue, Color.blue, 4, 60, true, true, "R22");
+        Rectangulo R23 = new Rectangulo(430, 330, Color.blue, Color.blue, 4, 60, true, true, "R23");
+        Rectangulo R24 = new Rectangulo(461, 65, Color.blue, Color.blue, 30, 107, true, true, "R24");
+        Rectangulo R25 = new Rectangulo(490, 330, Color.blue, Color.blue, 31, 120, true, true, "R25");
+        Rectangulo R26 = new Rectangulo(551, 50, Color.blue, Color.blue, 30, 182, true, true, "R26");
+        Rectangulo R27 = new Rectangulo(551, 260, Color.blue, Color.blue, 30, 160, true, true, "R27");
+        Rectangulo R28 = new Rectangulo(611, 50, Color.blue, Color.blue, 26, 69, true, true, "R28");
+        Rectangulo R29 = new Rectangulo(690, 230, Color.blue, Color.blue, 30, 57, true, true, "R29");
+        Rectangulo R30 = new Rectangulo(671, 336, Color.blue, Color.blue, 30, 57, true, true, "R30");
         this.lienzo1.getFiguras().add(R15);
         this.lienzo1.getFiguras().add(R16);
         this.lienzo1.getFiguras().add(R17);
@@ -177,7 +187,6 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(R28);
         this.lienzo1.getFiguras().add(R29);
         this.lienzo1.getFiguras().add(R30);
-        
     }
     
     
@@ -192,6 +201,8 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         lienzo1 = new Controladores.Lienzo();
+        btnPlay = new javax.swing.JButton();
+        lbPuntos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -217,19 +228,38 @@ public class Inicio extends javax.swing.JFrame {
             .addGap(0, 500, Short.MAX_VALUE)
         );
 
+        btnPlay.setText("Play");
+        btnPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlayActionPerformed(evt);
+            }
+        });
+
+        lbPuntos.setText("inicio");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lienzo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 74, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPlay)
+                    .addComponent(lbPuntos))
+                .addGap(0, 52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lienzo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 29, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(btnPlay)
+                .addGap(30, 30, 30)
+                .addComponent(lbPuntos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,50 +272,54 @@ public class Inicio extends javax.swing.JFrame {
         
         
         System.out.println(evt.getKeyChar());
-            if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyChar()=='w' ||evt.getKeyChar()=='W'  ) {
-                while(this.lienzo1.verificarColisiones(pacman) != true){
-                   
-                    this.pacman.setY(this.pacman.getY()-1);
-                    repaint();
-                    
-                    
-                }
-                this.pacman.setY(this.pacman.getY()+1);
-            
-            
-            } else if (evt.getKeyCode()==KeyEvent.VK_LEFT || evt.getKeyChar()=='a'||evt.getKeyChar()=='A'){
-                while(this.lienzo1.verificarColisiones(pacman) != true){
-                    this.pacman.setX(this.pacman.getX()-1);
-                    
-                    repaint();
-                    
-                    
-                }
-                this.pacman.setX(this.pacman.getX()+1);
-                
-            } else if (evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyChar()=='s'||evt.getKeyChar()=='S'){
-                
-//                System.out.println(this.lienzo1.verificarColisiones(pacman));
-                while(this.lienzo1.verificarColisiones(pacman) != true){
-                      
-                    this.pacman.setY(this.pacman.getY()+1);
-                    
-                    repaint();
-                    
-                }
-                System.out.println(this.pacman.getY());
-               
-                this.pacman.setY(this.pacman.getY()-1);
-                
-            } else if (evt.getKeyCode()==KeyEvent.VK_RIGHT || evt.getKeyChar()=='d'||evt.getKeyChar()=='D'){
-                while(this.lienzo1.verificarColisiones(pacman) != true){
-                    this.pacman.setX(this.pacman.getX()+1);
-                   
-                    repaint();
-                }
-                this.pacman.setX(this.pacman.getX()-1);
-                
+System.out.println(evt.getKeyChar());
+        
+        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyChar() == 'w' || evt.getKeyChar() == 'W') {
+
+            if (this.lienzo1.verificarColisiones(pacman) != true) {
+
+                this.pacman.setY(this.pacman.getY() - 1);
+                repaint();
+
+            } else {
+
+                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() + this.lienzo1.ColisionMapa(pacman).getAlto() + 1);
             }
+
+        } else if (evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
+            if (this.lienzo1.verificarColisiones(pacman) != true) {
+                this.pacman.setX(this.pacman.getX() - 1);
+
+                repaint();
+
+            } else {
+                this.pacman.setX(this.pacman.getX() + 1);
+            }
+        } else if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyChar() == 's' || evt.getKeyChar() == 'S') {
+
+//                System.out.println(this.lienzo1.verificarColisiones(pacman));
+            if (this.lienzo1.verificarColisiones(pacman) != true) {
+
+                this.pacman.setY(this.pacman.getY() + 1);
+
+                repaint();
+
+            } else {
+
+                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() - pacman.getAlto() - 1);
+
+            }
+
+        } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT || evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
+            if (this.lienzo1.verificarColisiones(pacman) != true) {
+                this.pacman.setX(this.pacman.getX() + 1);
+
+                repaint();
+            }
+//                else{
+//                this.pacman.setX(this.pacman.getX()-1);
+//                }
+        }
         
         
     }//GEN-LAST:event_formKeyPressed
@@ -293,6 +327,15 @@ public class Inicio extends javax.swing.JFrame {
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_formKeyTyped
+
+    private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
+        // TODO add your handling code here:
+        Thread proceso=new Thread(this.lienzo1);
+        this.lienzo1.setEstaJugando(true);
+        proceso.start();
+        this.btnPlay.setFocusable(false);
+        this.setFocusable(true);
+    }//GEN-LAST:event_btnPlayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +373,8 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPlay;
+    private javax.swing.JLabel lbPuntos;
     private Controladores.Lienzo lienzo1;
     // End of variables declaration//GEN-END:variables
 }
