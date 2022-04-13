@@ -22,8 +22,13 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     public Inicio() {
+        starter();
+        
+    }
+    public void starter(){
         initComponents();
         creacionEscenario();
+        this.lienzo1.getText().remove(this.lbPuntos);
         this.lienzo1.getText().add(this.lbPuntos);
 //        Color backG= new Color(5,5,20);
 //        this.lienzo1=new Lienzo();
@@ -32,7 +37,7 @@ public class Inicio extends javax.swing.JFrame {
 //        this.lienzo1.setSize(800, 500);
 //        this.add(lienzo1);
         
-        ;
+        
         this.setFocusable(true);
     }
     
@@ -48,7 +53,6 @@ public class Inicio extends javax.swing.JFrame {
         bordesLaberinto();
         rellenoLaberinto();
         bolitas();
-//        nivel2(this.lienzo1.ganar());
     }
 
     public void fantasmas() {
@@ -57,10 +61,10 @@ public class Inicio extends javax.swing.JFrame {
         Imagen FanRosa = new Imagen(25, 25, 22, 452, "src/recursosPacman/fantasmaRosa.png", true, false, true, "FanRosa");
         Imagen FanVerde = new Imagen(25, 25, 22, 22, "src/recursosPacman/fantasmaVerde.png", false, true, true, "FanVerde");
 
-        Imagen EctoplasmaVerde = new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasma.png", true, false, true, "ectoPlasmaVerde");
-        Imagen EctoplasmaRosa = new Imagen(20, 20, FanRosa.getX(), FanRosa.getY(), "src/recursosPacman/ectoplasma.png", true, true, true, "ectoPlasmaRosa");
-        Imagen EctoplasmaNaranja = new Imagen(20, 20, FanNaranja.getX(), FanNaranja.getY(), "src/recursosPacman/ectoplasma.png", false, false, true, "ectoPlasmaNaranja");
-        Imagen EctoplasmaRojo = new Imagen(20, 20, FanRojo.getX(), FanRojo.getY(), "src/recursosPacman/ectoplasma.png", true, true, true, "ectoPlasmaRojo");
+        Imagen EctoplasmaVerde = new Imagen(20, 20, FanVerde.getX(), FanVerde.getY(), "src/recursosPacman/ectoplasmaVerde.png", true, false, true, "ectoPlasmaVerde");
+        Imagen EctoplasmaRosa = new Imagen(20, 20, FanRosa.getX(), FanRosa.getY(), "src/recursosPacman/ectoplasmaRosa.png", true, true, true, "ectoPlasmaRosa");
+        Imagen EctoplasmaNaranja = new Imagen(20, 20, FanNaranja.getX(), FanNaranja.getY(), "src/recursosPacman/ectoplasmaNaranja.png", false, false, true, "ectoPlasmaNaranja");
+        Imagen EctoplasmaRojo = new Imagen(20, 20, FanRojo.getX(), FanRojo.getY(), "src/recursosPacman/ectoplasmaRojo.png", true, true, true, "ectoPlasmaRojo");
 
         this.lienzo1.getFiguras().add(EctoplasmaVerde);
         this.lienzo1.getFiguras().add(EctoplasmaRosa);
@@ -144,7 +148,7 @@ public class Inicio extends javax.swing.JFrame {
         Circulo c2 = new Circulo(531, 360, Color.white, Color.white, 5, true, true, true, "c2");
         Circulo c3 = new Circulo(670, 430, Color.white, Color.white, 5, true, true, true, "c3");
         Circulo c4 = new Circulo(110, 301, Color.white, Color.white, 5, true, true, true, "c4");
-        Circulo c5 = new Circulo(103, 202, Color.white, Color.white, 5, true, true, true, "c5");
+        Circulo c5 = new Circulo(103, 212, Color.white, Color.white, 5, true, true, true, "c5");
         Circulo c6 = new Circulo(395, 180, Color.white, Color.white, 5, true, true, true, "c6");
         this.lienzo1.getFiguras().add(c1);
         this.lienzo1.getFiguras().add(c2);
@@ -204,6 +208,12 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(c10);
         this.lienzo1.getFiguras().add(c11);
         this.lienzo1.getFiguras().add(c12);
+            System.out.println("entra ");
+            starter();
+        Thread proceso=new Thread(this.lienzo1);
+        this.lienzo1.setEstaJugando(true);
+        proceso.start();
+        
         }
     }
     
@@ -221,6 +231,8 @@ public class Inicio extends javax.swing.JFrame {
         btnPlay = new javax.swing.JButton();
         lbPuntos = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnPause = new javax.swing.JButton();
+        btnRetry = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -257,6 +269,20 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel1.setText("Puntos:");
 
+        btnPause.setText("pause");
+        btnPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPauseActionPerformed(evt);
+            }
+        });
+
+        btnRetry.setText("retry");
+        btnRetry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -264,11 +290,13 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lienzo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnPlay)
                     .addComponent(lbPuntos)
-                    .addComponent(jLabel1))
-                .addGap(0, 52, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(btnPause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRetry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,6 +310,10 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(5, 5, 5)
                 .addComponent(lbPuntos)
+                .addGap(18, 18, 18)
+                .addComponent(btnPause)
+                .addGap(18, 18, 18)
+                .addComponent(btnRetry)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -318,7 +350,27 @@ public class Inicio extends javax.swing.JFrame {
         proceso.start();
         this.btnPlay.setFocusable(false);
         this.setFocusable(true);
+        if(this.lienzo1.isGanado()){
+            nivel2(this.lienzo1.isGanado());
+        }
     }//GEN-LAST:event_btnPlayActionPerformed
+
+    private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
+        // TODO add your handling code here:
+               this.btnPause.setFocusable(false);
+       this.lienzo1.setEstaJugando(false);
+        this.setFocusable(true);
+    }//GEN-LAST:event_btnPauseActionPerformed
+
+    private void btnRetryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetryActionPerformed
+        // TODO add your handling code here:
+        int ejemplo=0;
+        this.btnRetry.setFocusable(false);
+       this.lienzo1.setEstaJugando(false);
+        this.setFocusable(true);
+        this.lienzo1.getText().clear();
+        starter();
+    }//GEN-LAST:event_btnRetryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,7 +408,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPause;
     private javax.swing.JButton btnPlay;
+    private javax.swing.JButton btnRetry;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbPuntos;
     private Controladores.Lienzo lienzo1;
