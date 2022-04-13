@@ -108,7 +108,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         dispararEctoplasmaNaranja((FiguraEstandar)figuraActual);
                         dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
                     }else{
-                         GameOver((FiguraEstandar)figuraActual);
+//                        GameOver((FiguraEstandar)figuraActual);
                         sacarPacmanPared((FiguraEstandar)figuraActual);
                         puntuacion((FiguraEstandar)figuraActual); 
                         movimientoPacman((FiguraEstandar)figuraActual);
@@ -116,10 +116,15 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                     } 
                 }
             }
+            contarCirculos();
+            System.out.println(contarCirculos());
+            ganar();
             this.getFiguras().removeAll(this.getBasurero());
+            
             repaint();
             esperar(5);
         }
+        
     }
     
     public void validarFronteras(FiguraEstandar laFigura){
@@ -227,6 +232,27 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                       
         }
 //        System.out.println(this.getPunto());
+    }
+    
+    public boolean ganar(){
+        boolean gano=false;
+        if( this.basurero.size() > contarCirculos()){
+            System.out.println(contarCirculos());
+            JOptionPane.showMessageDialog(this, "HAS GANADO");
+            this.estaJugando=false;
+            gano=true;
+        }
+        return gano;
+    }
+    
+    public int contarCirculos(){
+        int cantdidad=0;
+        for (FiguraGeometrica actual:this.figuras){
+            if (actual instanceof Circulo){
+                cantdidad=cantdidad+this.basurero.size();
+            }
+        }
+        return cantdidad;
     }
     
     public FiguraEstandar objetoColisionado(FiguraEstandar jugador){
@@ -450,7 +476,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void movimientoArriba(FiguraEstandar jugador){
         if(jugador.getId()=="pacman" && this.lastKey == "w"){
             while(verificarColisiones(jugador) != true){
-            jugador.setY(jugador.getY() - 1);
+            jugador.setY(jugador.getY() - 5);
             
             
             }
@@ -461,19 +487,19 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     }
     
     public void movimientoAbajo(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman" && this.lastKey == "s"){
-            while(verificarColisiones(jugador) != true){
-            jugador.setY(jugador.getY() + 1);
-            
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
+            jugador.setY(jugador.getY() + 5);
+           
             
             }
         }
     }
    
     public void movimientoDerecha(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman" && this.lastKey == "d"){
-            while(verificarColisiones(jugador) != true){
-            jugador.setX(jugador.getX() + 1);
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
+            jugador.setX(jugador.getX() + 5);
             
             
             }
@@ -481,10 +507,9 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     }
    
     public void movimientoIzda(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman" && this.lastKey == "a"){
-            while(verificarColisiones(jugador) != true){
-            jugador.setX(jugador.getX() - 1);
-            
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
+            jugador.setX(jugador.getX() - 5);
             
             }
         }

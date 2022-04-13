@@ -203,6 +203,7 @@ public class Inicio extends javax.swing.JFrame {
         lienzo1 = new Controladores.Lienzo();
         btnPlay = new javax.swing.JButton();
         lbPuntos = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -235,7 +236,9 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        lbPuntos.setText("inicio");
+        lbPuntos.setText("0");
+
+        jLabel1.setText("Puntos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,7 +249,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPlay)
-                    .addComponent(lbPuntos))
+                    .addComponent(lbPuntos)
+                    .addComponent(jLabel1))
                 .addGap(0, 52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -257,7 +261,9 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(btnPlay)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(5, 5, 5)
                 .addComponent(lbPuntos)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -334,6 +340,7 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPlay;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbPuntos;
     private Controladores.Lienzo lienzo1;
     // End of variables declaration//GEN-END:variables
