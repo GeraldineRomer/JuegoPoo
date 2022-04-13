@@ -45,7 +45,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         this.text = new LinkedList<>();
         this.basurero = new LinkedList<>();
         this.lastKey="";
-        this.velocidadPacman=5;
+        this.velocidadPacman=1;
         this.ganado= false;
     }
     
@@ -113,7 +113,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         dispararEctoplasmaNaranja((FiguraEstandar)figuraActual);
                         dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
                     }else{
-//                        GameOver((FiguraEstandar)figuraActual);
+                        movimientoPacman((FiguraEstandar)figuraActual);
+                        GameOver((FiguraEstandar)figuraActual);
                         sacarPacmanPared((FiguraEstandar)figuraActual);
                         puntuacion((FiguraEstandar)figuraActual); 
                        
@@ -471,10 +472,15 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     }
     
     public void movimientoPacman(FiguraEstandar jugador){
-        movimientoArriba(jugador);
-        movimientoAbajo(jugador);
-        movimientoDerecha(jugador);
-        movimientoIzda(jugador);
+        if(lastKey=="w"){
+            movimientoArriba(jugador);
+        }else if(lastKey=="s"){
+        movimientoAbajo(jugador);            
+        }else if(lastKey=="d"){
+        movimientoDerecha(jugador);            
+        }else if(lastKey=="a"){
+        movimientoIzda(jugador);            
+        }
     }
     
     public void movimientoArriba(FiguraEstandar jugador){
