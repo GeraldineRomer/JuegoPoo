@@ -266,69 +266,22 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        // TODO add your handling code here:
-        
-        this.setFocusable(true);
-        
-        
+        // TODO add your handling code here:     
+        this.setFocusable(true);    
 //        System.out.println(evt.getKeyChar());
-                
-        
         if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyChar() == 'w' || evt.getKeyChar() == 'W') {
-
-            this.lienzo1.movimientoArriba(pacman);
+//            this.lienzo1.movimientoArriba(pacman);
             this.lienzo1.setLastKey("w");
-//            if (this.lienzo1.verificarColisiones(pacman) != true) {
-//
-//                this.pacman.setY(this.pacman.getY() - 1);
-//                
-//
-//            } else {
-//
-//                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() + this.lienzo1.ColisionMapa(pacman).getAlto() + 1);
-//            }
-
         } else if (evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
-            this.lienzo1.movimientoIzda(pacman);
+//            this.lienzo1.movimientoIzda(pacman);
             this.lienzo1.setLastKey("a");
-//            if (this.lienzo1.verificarColisiones(pacman) != true) {
-//                this.pacman.setX(this.pacman.getX() - 1);
-//
-//                repaint();
-//
-//            } else {
-//                this.pacman.setX(this.pacman.getX() + 1);
-//            }
         } else if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyChar() == 's' || evt.getKeyChar() == 'S') {
-            this.lienzo1.movimientoAbajo(pacman);
+//            this.lienzo1.movimientoAbajo(pacman);
             this.lienzo1.setLastKey("s");
-//                System.out.println(this.lienzo1.verificarColisiones(pacman));
-//            if (this.lienzo1.verificarColisiones(pacman) != true) {
-//
-//                this.pacman.setY(this.pacman.getY() + 1);
-//
-//                repaint();
-//
-//            } else {
-//
-//                this.pacman.setY(this.lienzo1.ColisionMapa(pacman).getY() - pacman.getAlto() - 1);
-//
-//            }
-
         } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT || evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
-            this.lienzo1.movimientoDerecha(pacman);
+//            this.lienzo1.movimientoDerecha(pacman);
             this.lienzo1.setLastKey("d");
-//            if (this.lienzo1.verificarColisiones(pacman) != true) {
-//                this.pacman.setX(this.pacman.getX() + 1);
-//
-//                repaint();
-//            }
-//                else{
-//                this.pacman.setX(this.pacman.getX()-1);
-//                }
         }
-        
-        
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped

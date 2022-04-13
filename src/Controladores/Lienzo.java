@@ -28,9 +28,9 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     private LinkedList <FiguraGeometrica> figuras;
     private boolean estaJugando;
     private int punto;
-     private LinkedList <JLabel> text; 
-     private LinkedList <FiguraGeometrica> basurero;
-     private String lastKey;
+    private LinkedList <JLabel> text; 
+    private LinkedList <FiguraGeometrica> basurero;
+    private String lastKey;
     
     /**
      * Creates new form Lienzo
@@ -71,6 +71,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         g.setColor(elCuadrado.getBorde());
         g.drawRect(elCuadrado.getX(), elCuadrado.getY(), elCuadrado.getLado(), elCuadrado.getLado());
     }
+    
     public void dibujarRectangulo(Graphics g,Rectangulo elRectangulo){
         g.setColor(elRectangulo.getColorRelleno());
         g.fillRect(elRectangulo.getX(), elRectangulo.getY(), elRectangulo.getAncho(), elRectangulo.getAlto());
@@ -107,9 +108,10 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         dispararEctoplasmaNaranja((FiguraEstandar)figuraActual);
                         dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
                     }else{
-//                         GameOver((FiguraEstandar)figuraActual);
+                         GameOver((FiguraEstandar)figuraActual);
                         sacarPacmanPared((FiguraEstandar)figuraActual);
-                        puntuacion((FiguraEstandar)figuraActual);      
+                        puntuacion((FiguraEstandar)figuraActual); 
+                        movimientoPacman((FiguraEstandar)figuraActual);
                      
                     } 
                 }
@@ -117,9 +119,6 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             this.getFiguras().removeAll(this.getBasurero());
             repaint();
             esperar(5);
-        }
-        if(this.isEstaJugando()== false){  
-            JOptionPane.showMessageDialog(this, "pause");
         }
     }
     
@@ -415,7 +414,6 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         }
     }
     
-    
     public void dispararEctoplasmaRojo(FiguraEstandar ectoplasmaRojo){
         if (ectoplasmaRojo instanceof Imagen){
             if (((Imagen) ectoplasmaRojo).getId().equals("ectoPlasmaRojo")){
@@ -437,48 +435,56 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void GameOver(FiguraEstandar jugador){
         if(objetoColisionado(jugador) instanceof Imagen){
             this.setEstaJugando(false);
-            
+            JOptionPane.showMessageDialog(this, "GAME OVER");
         }
         
     }
     
+    public void movimientoPacman(FiguraEstandar jugador){
+        movimientoArriba(jugador);
+        movimientoAbajo(jugador);
+        movimientoDerecha(jugador);
+        movimientoIzda(jugador);
+    }
+    
     public void movimientoArriba(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman"){
-            if(verificarColisiones(jugador) != true){
+        if(jugador.getId()=="pacman" && this.lastKey == "w"){
+            while(verificarColisiones(jugador) != true){
             jugador.setY(jugador.getY() - 1);
-            repaint();
             
-            }else{
-                jugador.setY(jugador.getY() + 1);
+            
             }
+//            else{
+//                jugador.setY(jugador.getY() + 1);
+//            }
         }
     }
     
     public void movimientoAbajo(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman"){
-            if(verificarColisiones(jugador) != true){
+        if(jugador.getId()=="pacman" && this.lastKey == "s"){
+            while(verificarColisiones(jugador) != true){
             jugador.setY(jugador.getY() + 1);
-            repaint();
+            
             
             }
         }
     }
    
     public void movimientoDerecha(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman"){
-            if(verificarColisiones(jugador) != true){
+        if(jugador.getId()=="pacman" && this.lastKey == "d"){
+            while(verificarColisiones(jugador) != true){
             jugador.setX(jugador.getX() + 1);
-            repaint();
+            
             
             }
         }
     }
    
     public void movimientoIzda(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman"){
-            if(verificarColisiones(jugador) != true){
+        if(jugador.getId()=="pacman" && this.lastKey == "a"){
+            while(verificarColisiones(jugador) != true){
             jugador.setX(jugador.getX() - 1);
-            repaint();
+            
             
             }
         }
@@ -494,6 +500,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
         }
     }
+    
     public void sacarBloquesHaciaAbajo(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
             if(verificarColisionPared(jugador) == true && this.lastKey == "w"){
@@ -501,6 +508,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }        
         }
     }
+    
     public void sacarBloquesHaciaArriba(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
             if(verificarColisionPared(jugador) == true && this.lastKey == "s"){
@@ -508,6 +516,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }        
         }
     }
+    
     public void sacarBloquesHaciaDerecha(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
             if(verificarColisionPared(jugador) == true && this.lastKey == "a"){
@@ -516,7 +525,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             }        
         }
     }
-     public void sacarBloquesHaciaIzda(Imagen jugador){
+    
+    public void sacarBloquesHaciaIzda(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
             if(verificarColisionPared(jugador) == true && this.lastKey == "d"){
                 jugador.setX(paredColisionada(jugador).getX() - jugador.getAncho());
