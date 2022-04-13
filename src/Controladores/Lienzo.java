@@ -31,6 +31,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     private LinkedList <JLabel> text; 
     private LinkedList <FiguraGeometrica> basurero;
     private String lastKey;
+    private int velocidadPacman;
+    private boolean ganado;
     
     /**
      * Creates new form Lienzo
@@ -43,6 +45,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         this.text = new LinkedList<>();
         this.basurero = new LinkedList<>();
         this.lastKey="";
+        this.velocidadPacman=5;
+        this.ganado= false;
     }
     
     @Override
@@ -95,6 +99,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     @Override
     public void run() {
+        System.out.println("llego");
         while(this.isEstaJugando()){
             for (FiguraGeometrica figuraActual:this.getFiguras()) {
                 if(figuraActual instanceof FiguraEstandar){
@@ -116,13 +121,14 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 }
             }
             contarCirculos();
-            System.out.println(contarCirculos());
+//            System.out.println(contarCirculos());
             ganar();
             this.getFiguras().removeAll(this.getBasurero());
             
             repaint();
             esperar(5);
         }
+        System.out.println("murió");
         
     }
     
@@ -208,7 +214,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
 //                
                 if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea())  ) {
                 respuesta=true;
-                System.out.println(this.getFiguras().get(i).getId());
+//                System.out.println(this.getFiguras().get(i).getId());
             }
             }
             
@@ -225,30 +231,28 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         
         if ( objetoColisionado(Jugador) instanceof Circulo){
             this.setPunto(this.getPunto() + 1);
+            this.getBasurero().clear();
             this.getText().get(0).setText(""+this.getPunto());
             this.getBasurero().add(objetoColisionado(Jugador));
-//            this.getFiguras().remove(ColisionObjeto(Jugador));
+
                       
         }
-//        System.out.println(this.getPunto());
     }
     
-    public boolean ganar(){
-        boolean gano=false;
-        if( this.basurero.size() > contarCirculos()){
-            System.out.println(contarCirculos());
+    public void ganar(){
+        if( this.getBasurero().size() > contarCirculos()){
             JOptionPane.showMessageDialog(this, "HAS GANADO");
-            this.estaJugando=false;
-            gano=true;
+            this.getBasurero().clear();
+            this.setGanado(true);
+            this.setEstaJugando(false);
         }
-        return gano;
     }
     
     public int contarCirculos(){
         int cantdidad=0;
-        for (FiguraGeometrica actual:this.figuras){
+        for (FiguraGeometrica actual:this.getFiguras()){
             if (actual instanceof Circulo){
-                cantdidad=cantdidad+this.basurero.size();
+                cantdidad=cantdidad+this.getBasurero().size();
             }
         }
         return cantdidad;
@@ -387,7 +391,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     public void dispararEctoplasmaVerde(FiguraEstandar ectoplasmaVerde){
         if (ectoplasmaVerde instanceof Imagen){
-            if (((Imagen) ectoplasmaVerde).getRuta().equals("src/recursosPacman/ectoplasma.png")){
+            if (((Imagen) ectoplasmaVerde).getId().equals("ectoPlasmaVerde")){
                 if (movimientoEctoplasmaVerde(ectoplasmaVerde)){
                     for(FiguraGeometrica actual:this.getFiguras()){
                         if (actual instanceof Imagen){
@@ -473,22 +477,20 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     }
     
     public void movimientoArriba(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman" ){
+//        if(jugador.getId()=="pacman" ){
+//            if(verificarColisiones(jugador) != true){
+//            jugador.setY(jugador.getY() - 5);
+           
+        if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
-            jugador.setY(jugador.getY() - 5);
-            
-            
+            jugador.setY(jugador.getY() - this.getVelocidadPacman());
             }
-//            else{
-//                jugador.setY(jugador.getY() + 1);
-//            }
         }
     }
-    
     public void movimientoAbajo(FiguraEstandar jugador){
         if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
-            jugador.setY(jugador.getY() + 5);
+            jugador.setY(jugador.getY() + this.getVelocidadPacman());
            
             
             }
@@ -498,7 +500,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void movimientoDerecha(FiguraEstandar jugador){
         if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
-            jugador.setX(jugador.getX() + 5);
+            jugador.setX(jugador.getX() + this.getVelocidadPacman());
             
             
             }
@@ -508,7 +510,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void movimientoIzda(FiguraEstandar jugador){
         if(jugador.getId()=="pacman"){
             if(verificarColisiones(jugador) != true){
-            jugador.setX(jugador.getX() - 5);
+            jugador.setX(jugador.getX() - this.getVelocidadPacman());
             
             }
         }
@@ -527,7 +529,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     public void sacarBloquesHaciaAbajo(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
-            if(verificarColisionPared(jugador) == true && this.lastKey == "w"){
+            if(verificarColisionPared(jugador) == true && this.getLastKey() == "w"){
                 jugador.setY(paredColisionada(jugador).getY() + paredColisionada(jugador).getAlto());
             }        
         }
@@ -535,7 +537,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     public void sacarBloquesHaciaArriba(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
-            if(verificarColisionPared(jugador) == true && this.lastKey == "s"){
+            if(verificarColisionPared(jugador) == true && this.getLastKey() == "s"){
                 jugador.setY(paredColisionada(jugador).getY()- jugador.getAlto());
             }        
         }
@@ -543,16 +545,18 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     public void sacarBloquesHaciaDerecha(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
-            if(verificarColisionPared(jugador) == true && this.lastKey == "a"){
-                System.out.println("colision "+ paredColisionada(jugador).getId());
-                jugador.setX(paredColisionada(jugador).getX() + paredColisionada(jugador).getAncho());
+            if(verificarColisionPared(jugador) == true && this.getLastKey() == "a"){
+                if(paredColisionada(jugador) instanceof Rectangulo){
+            jugador.setX(paredColisionada(jugador).getX() + paredColisionada(jugador).getAncho());
+                    
+                }
             }        
         }
     }
     
     public void sacarBloquesHaciaIzda(Imagen jugador){
         if(jugador.getId()== "pacman"){ 
-            if(verificarColisionPared(jugador) == true && this.lastKey == "d"){
+            if(verificarColisionPared(jugador) == true && this.getLastKey() == "d"){
                 jugador.setX(paredColisionada(jugador).getX() - jugador.getAncho());
             }        
         }
@@ -678,6 +682,34 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
      */
     public void setLastKey(String lastKey) {
         this.lastKey = lastKey;
+    }
+
+    /**
+     * @return the velocidadPacman
+     */
+    public int getVelocidadPacman() {
+        return velocidadPacman;
+    }
+
+    /**
+     * @param velocidadPacman the velocidadPacman to set
+     */
+    public void setVelocidadPacman(int velocidadPacman) {
+        this.velocidadPacman = velocidadPacman;
+    }
+
+    /**
+     * @return the ganado
+     */
+    public boolean isGanado() {
+        return ganado;
+    }
+
+    /**
+     * @param ganado the ganado to set
+     */
+    public void setGanado(boolean ganado) {
+        this.ganado = ganado;
     }
 
     
