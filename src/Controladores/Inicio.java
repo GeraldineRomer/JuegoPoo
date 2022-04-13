@@ -48,6 +48,7 @@ public class Inicio extends javax.swing.JFrame {
         bordesLaberinto();
         rellenoLaberinto();
         bolitas();
+//        nivel2(this.lienzo1.ganar());
     }
 
     public void fantasmas() {
@@ -189,6 +190,22 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(R30);
     }
     
+    public void nivel2(boolean ganar){
+        if(ganar){
+        Circulo c7 = new Circulo(530, 55, Color.white, Color.white, 5, true, true, true, "c1");
+        Circulo c8 = new Circulo(231, 30, Color.white, Color.white, 5, true, true, true, "c2");
+        Circulo c9 = new Circulo(255, 464, Color.white, Color.white, 5, true, true, true, "c3");
+        Circulo c10 = new Circulo(651, 243, Color.white, Color.white, 5, true, true, true, "c4");
+        Circulo c11 = new Circulo(651, 360, Color.white, Color.white, 5, true, true, true, "c5");
+        Circulo c12 = new Circulo(398, 337, Color.white, Color.white, 5, true, true, true, "c6");
+        this.lienzo1.getFiguras().add(c7);
+        this.lienzo1.getFiguras().add(c8);
+        this.lienzo1.getFiguras().add(c9);
+        this.lienzo1.getFiguras().add(c10);
+        this.lienzo1.getFiguras().add(c11);
+        this.lienzo1.getFiguras().add(c12);
+        }
+    }
     
     
     /**
@@ -276,16 +293,16 @@ public class Inicio extends javax.swing.JFrame {
         this.setFocusable(true);    
 //        System.out.println(evt.getKeyChar());
         if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyChar() == 'w' || evt.getKeyChar() == 'W') {
-//            this.lienzo1.movimientoArriba(pacman);
+            this.lienzo1.movimientoArriba(pacman);
             this.lienzo1.setLastKey("w");
         } else if (evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
-//            this.lienzo1.movimientoIzda(pacman);
+            this.lienzo1.movimientoIzda(pacman);
             this.lienzo1.setLastKey("a");
         } else if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyChar() == 's' || evt.getKeyChar() == 'S') {
-//            this.lienzo1.movimientoAbajo(pacman);
+            this.lienzo1.movimientoAbajo(pacman);
             this.lienzo1.setLastKey("s");
         } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT || evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
-//            this.lienzo1.movimientoDerecha(pacman);
+            this.lienzo1.movimientoDerecha(pacman);
             this.lienzo1.setLastKey("d");
         }
     }//GEN-LAST:event_formKeyPressed

@@ -111,7 +111,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
 //                        GameOver((FiguraEstandar)figuraActual);
                         sacarPacmanPared((FiguraEstandar)figuraActual);
                         puntuacion((FiguraEstandar)figuraActual); 
-                        movimientoPacman((FiguraEstandar)figuraActual);
+//                        movimientoPacman((FiguraEstandar)figuraActual);
                      
                     } 
                 }
@@ -474,8 +474,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     }
     
     public void movimientoArriba(FiguraEstandar jugador){
-        if(jugador.getId()=="pacman" && this.lastKey == "w"){
-            while(verificarColisiones(jugador) != true){
+        if(jugador.getId()=="pacman"){
+            if(verificarColisiones(jugador) != true){
             jugador.setY(jugador.getY() - 5);
             
             
