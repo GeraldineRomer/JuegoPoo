@@ -32,7 +32,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     private LinkedList <FiguraGeometrica> basurero;
     private String lastKey;
     private int velocidadPacman;
-    private boolean ganado;
+    private int ganado;
     
     /**
      * Creates new form Lienzo
@@ -46,7 +46,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         this.basurero = new LinkedList<>();
         this.lastKey="";
         this.velocidadPacman=1;
-        this.ganado= false;
+        this.ganado= -1;
     }
     
     @Override
@@ -114,7 +114,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
                     }else{
                         movimientoPacman((FiguraEstandar)figuraActual);
-                        GameOver((FiguraEstandar)figuraActual);
+//                        GameOver((FiguraEstandar)figuraActual);
                         sacarPacmanPared((FiguraEstandar)figuraActual);
                         puntuacion((FiguraEstandar)figuraActual); 
                        
@@ -243,9 +243,10 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     public void ganar(){
         if( this.getBasurero().size() > contarCirculos()){
-            JOptionPane.showMessageDialog(this, "HAS GANADO");
+            int respuesta=JOptionPane.showConfirmDialog(this, "HAS GANADO \n ¿quieres pasar al siguiente nivel?");
+            this.ganado=respuesta;
             this.getBasurero().clear();
-            this.setGanado(true);
+            this.setGanado(respuesta);
             this.setEstaJugando(false);
         }
     }
@@ -472,13 +473,13 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     }
     
     public void movimientoPacman(FiguraEstandar jugador){
-        if(lastKey=="w"){
+        if(getLastKey()=="w"){
             movimientoArriba(jugador);
-        }else if(lastKey=="s"){
+        }else if(getLastKey()=="s"){
         movimientoAbajo(jugador);            
-        }else if(lastKey=="d"){
+        }else if(getLastKey()=="d"){
         movimientoDerecha(jugador);            
-        }else if(lastKey=="a"){
+        }else if(getLastKey()=="a"){
         movimientoIzda(jugador);            
         }
     }
@@ -704,16 +705,18 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     /**
      * @return the ganado
      */
-    public boolean isGanado() {
+    public int getGanado() {
         return ganado;
     }
 
     /**
      * @param ganado the ganado to set
      */
-    public void setGanado(boolean ganado) {
+    public void setGanado(int ganado) {
         this.ganado = ganado;
     }
+
+    
 
     
 

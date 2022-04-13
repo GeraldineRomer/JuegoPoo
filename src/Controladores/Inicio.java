@@ -23,10 +23,16 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     public Inicio() {
+        
         initComponents();
-        starter();
+            starter();
         cambiarfoco();
         this.lienzo1.getText().add(this.lbPuntos);
+        
+        
+              nivel2(this.lienzo1.getGanado());
+        
+        
         
     }
     public void starter(){
@@ -107,7 +113,7 @@ public class Inicio extends javax.swing.JFrame {
         Rectangulo R7 = new Rectangulo(246, 140, Color.blue, Color.blue, 33, 32, true, true, "R7");
         Rectangulo R8 = new Rectangulo(279, 49, Color.blue, Color.blue, 242, 16, true, true, "R8");
         Rectangulo R9 = new Rectangulo(279, 80, Color.blue, Color.blue, 242, 30, true, true, "R9");
-        Rectangulo R10 = new Rectangulo(309, 202, Color.blue, Color.blue, 182, 30, true, true, "R10");
+        Rectangulo R10 = new Rectangulo(307, 202, Color.blue, Color.blue, 186, 28, true, true, "R10");
         Rectangulo R11 = new Rectangulo(309, 260, Color.blue, Color.blue, 182, 5, true, true, "R11");
         Rectangulo R12 = new Rectangulo(309, 270, Color.blue, Color.blue, 182, 17, true, true, "R12");
         Rectangulo R13 = new Rectangulo(340, 300, Color.blue, Color.blue, 120, 30, true, true, "R13");
@@ -157,6 +163,7 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(c4);
         this.lienzo1.getFiguras().add(c5);
         this.lienzo1.getFiguras().add(c6);
+     
 
     }
 
@@ -164,7 +171,7 @@ public class Inicio extends javax.swing.JFrame {
         Rectangulo R15 = new Rectangulo(163, 50, Color.blue, Color.blue, 26, 69, true, true, "R15");
         Rectangulo R16 = new Rectangulo(80, 230, Color.blue, Color.blue, 30, 57, true, true, "R16");
         Rectangulo R17 = new Rectangulo(99, 336, Color.blue, Color.blue, 30, 57, true, true, "R17");
-        Rectangulo R18 = new Rectangulo(219, 50, Color.blue, Color.blue, 30, 182, true, true, "R18");
+        Rectangulo R18 = new Rectangulo(219, 50, Color.blue, Color.blue, 30, 180, true, true, "R18");
         Rectangulo R19 = new Rectangulo(219, 260, Color.blue, Color.blue, 30, 160, true, true, "R19");
         Rectangulo R20 = new Rectangulo(309, 65, Color.blue, Color.blue, 30, 107, true, true, "R20");
         Rectangulo R21 = new Rectangulo(279, 330, Color.blue, Color.blue, 31, 120, true, true, "R21");
@@ -172,7 +179,7 @@ public class Inicio extends javax.swing.JFrame {
         Rectangulo R23 = new Rectangulo(430, 330, Color.blue, Color.blue, 4, 60, true, true, "R23");
         Rectangulo R24 = new Rectangulo(461, 65, Color.blue, Color.blue, 30, 107, true, true, "R24");
         Rectangulo R25 = new Rectangulo(490, 330, Color.blue, Color.blue, 31, 120, true, true, "R25");
-        Rectangulo R26 = new Rectangulo(551, 50, Color.blue, Color.blue, 30, 182, true, true, "R26");
+        Rectangulo R26 = new Rectangulo(551, 50, Color.blue, Color.blue, 30, 180, true, true, "R26");
         Rectangulo R27 = new Rectangulo(551, 260, Color.blue, Color.blue, 30, 160, true, true, "R27");
         Rectangulo R28 = new Rectangulo(611, 50, Color.blue, Color.blue, 26, 69, true, true, "R28");
         Rectangulo R29 = new Rectangulo(690, 230, Color.blue, Color.blue, 30, 57, true, true, "R29");
@@ -195,9 +202,17 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(R30);
     }
     
-    public void nivel2(boolean ganar){
-        if(ganar){
-            starter();
+    public void nivel2(int ganar){
+        if(ganar==0){
+            this.lienzo1.setEstaJugando(false);
+        while(this.proceso.isAlive()){
+            System.out.println("todavia vive");
+        }
+//        this.btnRetry.setFocusable(false);
+//        this.setFocusable(true);
+        starter();
+        cambiarfoco();
+        creacionHilo();
         Circulo c7 = new Circulo(530, 55, Color.white, Color.white, 5, true, true, true, "c1");
         Circulo c8 = new Circulo(231, 30, Color.white, Color.white, 5, true, true, true, "c2");
         Circulo c9 = new Circulo(255, 464, Color.white, Color.white, 5, true, true, true, "c3");
@@ -211,8 +226,9 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(c11);
         this.lienzo1.getFiguras().add(c12);
             System.out.println("entra ");
-            this.lienzo1.setEstaJugando(true);
-            System.out.println(this.lienzo1.isEstaJugando());
+            this.lienzo1.getText().get(0).setText("0");
+        
+//            System.out.println(this.lienzo1.isEstaJugando());
             
         
         }
@@ -404,7 +420,15 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnNextLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextLevelActionPerformed
         // TODO add your handling code here:
-        nivel2(this.lienzo1.isGanado());
+        this.lienzo1.setEstaJugando(false);
+        while(this.proceso.isAlive()){
+            System.out.println("todavia vive");
+        }
+//        this.btnRetry.setFocusable(false);
+//        this.setFocusable(true);
+        starter();
+        cambiarfoco();
+        nivel2(this.lienzo1.getGanado());
     }//GEN-LAST:event_btnNextLevelActionPerformed
 
     /**
