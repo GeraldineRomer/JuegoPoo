@@ -99,6 +99,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     @Override
     public void run() {
+        System.out.println("llego");
         while(this.isEstaJugando()){
             for (FiguraGeometrica figuraActual:this.getFiguras()) {
                 if(figuraActual instanceof FiguraEstandar){
@@ -121,13 +122,14 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 }
             }
             contarCirculos();
-            System.out.println(contarCirculos());
+//            System.out.println(contarCirculos());
             ganar();
             this.getFiguras().removeAll(this.getBasurero());
             
             repaint();
             esperar(5);
         }
+        System.out.println("murió");
         
     }
     
@@ -213,7 +215,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
 //                
                 if (jugador!=this.getFiguras().get(i) && jugador.getArea().intersects(this.getFiguras().get(i).getArea())  ) {
                 respuesta=true;
-                System.out.println(this.getFiguras().get(i).getId());
+//                System.out.println(this.getFiguras().get(i).getId());
             }
             }
             
@@ -229,23 +231,21 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void puntuacion(FiguraEstandar Jugador){
         
         if ( objetoColisionado(Jugador) instanceof Circulo){
-            this.setPunto(0);
             this.setPunto(this.getPunto() + 1);
             this.getBasurero().clear();
             this.getText().get(0).setText(""+this.getPunto());
             this.getBasurero().add(objetoColisionado(Jugador));
-//            this.getFiguras().remove(ColisionObjeto(Jugador));
+
                       
         }
-//        System.out.println(this.getPunto());
     }
     
     public void ganar(){
         if( this.getBasurero().size() > contarCirculos()){
-            System.out.println(contarCirculos());
             JOptionPane.showMessageDialog(this, "HAS GANADO");
             this.getBasurero().clear();
-            this.setGanado(false);
+            this.setGanado(true);
+            this.setEstaJugando(false);
         }
     }
     

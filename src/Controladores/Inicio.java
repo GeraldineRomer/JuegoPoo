@@ -18,27 +18,28 @@ import java.awt.event.KeyEvent;
  */
 public class Inicio extends javax.swing.JFrame {
  Imagen pacman;
+ Thread proceso;
     /**
      * Creates new form Inicio
      */
     public Inicio() {
+        initComponents();
         starter();
+        cambiarfoco();
+        this.lienzo1.getText().add(this.lbPuntos);
         
     }
     public void starter(){
-        initComponents();
+        
+        this.lienzo1.getFiguras().clear();
         creacionEscenario();
-        this.lienzo1.getText().remove(this.lbPuntos);
-        this.lienzo1.getText().add(this.lbPuntos);
-//        Color backG= new Color(5,5,20);
-//        this.lienzo1=new Lienzo();
-//        this.lienzo1.setBackground(backG);
-//        this.lienzo1.setVisible(true);
-//        this.lienzo1.setSize(800, 500);
-//        this.add(lienzo1);
-        
-        
+        this.lienzo1.setPunto(0);   
         this.setFocusable(true);
+    }
+    public void creacionHilo(){
+        proceso=new Thread(this.lienzo1);
+        this.lienzo1.setEstaJugando(true);
+        proceso.start();
     }
     
     public void creacionEscenario() {
@@ -196,6 +197,7 @@ public class Inicio extends javax.swing.JFrame {
     
     public void nivel2(boolean ganar){
         if(ganar){
+            starter();
         Circulo c7 = new Circulo(530, 55, Color.white, Color.white, 5, true, true, true, "c1");
         Circulo c8 = new Circulo(231, 30, Color.white, Color.white, 5, true, true, true, "c2");
         Circulo c9 = new Circulo(255, 464, Color.white, Color.white, 5, true, true, true, "c3");
@@ -209,12 +211,20 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(c11);
         this.lienzo1.getFiguras().add(c12);
             System.out.println("entra ");
-            starter();
-        Thread proceso=new Thread(this.lienzo1);
-        this.lienzo1.setEstaJugando(true);
-        proceso.start();
+            this.lienzo1.setEstaJugando(true);
+            System.out.println(this.lienzo1.isEstaJugando());
+            
         
         }
+    }
+    
+    public void cambiarfoco(){
+        this.btnPause.setFocusable(false);
+        this.btnPlay.setFocusable(false);
+        this.btnRetry.setFocusable(false);
+        this.btnNextLevel.setFocusable(false);
+        this.setFocusable(true);
+        
     }
     
     
@@ -233,6 +243,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnPause = new javax.swing.JButton();
         btnRetry = new javax.swing.JButton();
+        btnNextLevel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -283,6 +294,13 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        btnNextLevel.setText("NextLevel");
+        btnNextLevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextLevelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -295,7 +313,8 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(lbPuntos)
                     .addComponent(jLabel1)
                     .addComponent(btnPause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRetry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRetry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNextLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -314,6 +333,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(btnPause)
                 .addGap(18, 18, 18)
                 .addComponent(btnRetry)
+                .addGap(28, 28, 28)
+                .addComponent(btnNextLevel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -345,32 +366,46 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         // TODO add your handling code here:
-        Thread proceso=new Thread(this.lienzo1);
-        this.lienzo1.setEstaJugando(true);
-        proceso.start();
+        
+        creacionHilo();
         this.btnPlay.setFocusable(false);
         this.setFocusable(true);
-        if(this.lienzo1.isGanado()){
-            nivel2(this.lienzo1.isGanado());
-        }
+        
+        cambiarfoco();
     }//GEN-LAST:event_btnPlayActionPerformed
 
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
         // TODO add your handling code here:
+       
                this.btnPause.setFocusable(false);
+              
        this.lienzo1.setEstaJugando(false);
         this.setFocusable(true);
+        this.btnPause.setFocusable(false);
+         cambiarfoco();
+         
     }//GEN-LAST:event_btnPauseActionPerformed
 
     private void btnRetryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetryActionPerformed
         // TODO add your handling code here:
-        int ejemplo=0;
-        this.btnRetry.setFocusable(false);
-       this.lienzo1.setEstaJugando(false);
-        this.setFocusable(true);
-        this.lienzo1.getText().clear();
+        
+        this.lienzo1.setEstaJugando(false);
+        while(this.proceso.isAlive()){
+            System.out.println("todavia vive");
+        }
+//        this.btnRetry.setFocusable(false);
+//        this.setFocusable(true);
         starter();
+        this.lienzo1.getText().get(0).setText("0");
+        this.btnRetry.setFocusable(false);
+        cambiarfoco();
+        creacionHilo();
     }//GEN-LAST:event_btnRetryActionPerformed
+
+    private void btnNextLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextLevelActionPerformed
+        // TODO add your handling code here:
+        nivel2(this.lienzo1.isGanado());
+    }//GEN-LAST:event_btnNextLevelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,6 +443,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNextLevel;
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnPlay;
     private javax.swing.JButton btnRetry;
