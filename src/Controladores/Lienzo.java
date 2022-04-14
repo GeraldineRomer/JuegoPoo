@@ -114,7 +114,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                         dispararEctoplasmaRojo((FiguraEstandar)figuraActual);
                     }else{
                         movimientoPacman((FiguraEstandar)figuraActual);
-//                        GameOver((FiguraEstandar)figuraActual);
+                        GameOver((FiguraEstandar)figuraActual);
                         sacarPacmanPared((FiguraEstandar)figuraActual);
                         puntuacion((FiguraEstandar)figuraActual); 
                        
@@ -243,11 +243,25 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     public void ganar(){
         if( this.getBasurero().size() > contarCirculos()){
+                        this.setEstaJugando(false);
+
             int respuesta=JOptionPane.showConfirmDialog(this, "HAS GANADO \n ¿quieres pasar al siguiente nivel?");
-            this.ganado=respuesta;
+                        this.setGanado(respuesta);
+
             this.getBasurero().clear();
-            this.setGanado(respuesta);
-            this.setEstaJugando(false);
+            if(respuesta==0){
+                this.setEstaJugando(true);
+                
+                
+            }
+            else if (respuesta==1){
+                this.setEstaJugando(true);
+            }else{
+                this.setEstaJugando(false);
+             JOptionPane.showMessageDialog(this, "HASTA PRONTO");   
+            }
+            JOptionPane.showMessageDialog(this, "PRESIONE ESPACIO 2 VECES PARA INICIAR");
+            
         }
     }
     
