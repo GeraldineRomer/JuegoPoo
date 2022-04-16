@@ -52,7 +52,7 @@ public class Inicio extends javax.swing.JFrame {
     }
     
     public void creacionEscenario() {
-        this.pacman = new Imagen(25, 25, 313, 393, "src/recursosPacman/pacman.png", true, true, false, "pacman");
+        this.pacman = new Imagen(25, 25, 313, 393, "src/recursosPacman/pacmanDerecha.gif", true, true, false, "pacman");
         this.lienzo1.getFiguras().add(pacman);
         laberinto();
         fantasmas();
@@ -354,15 +354,19 @@ public class Inicio extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyChar() == 'w' || evt.getKeyChar() == 'W') {
             this.lienzo1.movimientoArriba(pacman);
             this.lienzo1.setLastKey("w");
+            this.pacman.setRuta("src/recursosPacman/pacmanArriba.gif");
         } else if (evt.getKeyCode() == KeyEvent.VK_LEFT || evt.getKeyChar() == 'a' || evt.getKeyChar() == 'A') {
             this.lienzo1.movimientoIzda(pacman);
             this.lienzo1.setLastKey("a");
+            this.pacman.setRuta("src/recursosPacman/pacmanIzda.gif");
         } else if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyChar() == 's' || evt.getKeyChar() == 'S') {
             this.lienzo1.movimientoAbajo(pacman);
             this.lienzo1.setLastKey("s");
+            this.pacman.setRuta("src/recursosPacman/pacmanAbajo.gif");
         } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT || evt.getKeyChar() == 'd' || evt.getKeyChar() == 'D') {
             this.lienzo1.movimientoDerecha(pacman);
             this.lienzo1.setLastKey("d");
+            this.pacman.setRuta("src/recursosPacman/pacmanDerecha.gif");
         }
         else if ( evt.getKeyChar() == ' ') {
             nivel2();
