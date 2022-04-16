@@ -242,12 +242,30 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     
     public void ganar(){
         if( this.getBasurero().size() > contarCirculos()){
+                        this.setEstaJugando(false);
+
             int respuesta=JOptionPane.showConfirmDialog(this, "HAS GANADO \n ¿quieres pasar al siguiente nivel?");
             this.ganado=respuesta;
             System.out.println(this.ganado);
             this.getBasurero().clear();
 //            this.setGanado(respuesta);
             this.setEstaJugando(false);
+                        this.setGanado(respuesta);
+
+            this.getBasurero().clear();
+            if(respuesta==0){
+                this.setEstaJugando(true);
+                
+                
+            }
+            else if (respuesta==1){
+                this.setEstaJugando(true);
+            }else{
+                this.setEstaJugando(false);
+             JOptionPane.showMessageDialog(this, "HASTA PRONTO");   
+            }
+            JOptionPane.showMessageDialog(this, "PRESIONE ESPACIO 2 VECES PARA INICIAR");
+            
         }
     }
     

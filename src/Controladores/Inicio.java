@@ -30,7 +30,10 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getText().add(this.lbPuntos);
         
         
-              nivel2(this.lienzo1.getGanado());
+           
+
+        
+        
         
         
         
@@ -202,17 +205,14 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(R30);
     }
     
-    public void nivel2(int ganar){
-        if(ganar==0){
+    public void nivel2(){
+        if(this.lienzo1.getGanado()==0){
             this.lienzo1.setEstaJugando(false);
         while(this.proceso.isAlive()){
             System.out.println("todavia vive");
         }
-//        this.btnRetry.setFocusable(false);
-//        this.setFocusable(true);
         starter();
-        cambiarfoco();
-        creacionHilo();
+        
         Circulo c7 = new Circulo(530, 55, Color.white, Color.white, 5, true, true, true, "c1");
         Circulo c8 = new Circulo(231, 30, Color.white, Color.white, 5, true, true, true, "c2");
         Circulo c9 = new Circulo(255, 464, Color.white, Color.white, 5, true, true, true, "c3");
@@ -227,6 +227,8 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getFiguras().add(c12);
             System.out.println("entra ");
             this.lienzo1.getText().get(0).setText("0");
+            cambiarfoco();
+        creacionHilo();
         
 //            System.out.println(this.lienzo1.isEstaJugando());
             
@@ -374,6 +376,16 @@ public class Inicio extends javax.swing.JFrame {
             this.lienzo1.movimientoDerecha(pacman);
             this.lienzo1.setLastKey("d");
         }
+        else if (evt.getKeyChar() == ' ' || evt.getKeyChar() == ' ') {
+            nivel2();
+            if(this.lienzo1.getGanado()==1){
+              creacionHilo();
+        this.btnPlay.setFocusable(false);
+        this.setFocusable(true);
+        
+        cambiarfoco();  
+            }
+        }
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
@@ -426,9 +438,7 @@ public class Inicio extends javax.swing.JFrame {
         }
 //        this.btnRetry.setFocusable(false);
 //        this.setFocusable(true);
-        starter();
-        cambiarfoco();
-        nivel2(this.lienzo1.getGanado());
+        nivel2();
     }//GEN-LAST:event_btnNextLevelActionPerformed
 
     /**
@@ -461,7 +471,9 @@ public class Inicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                int example=0;
                 new Inicio().setVisible(true);
+                
             }
         });
     }
