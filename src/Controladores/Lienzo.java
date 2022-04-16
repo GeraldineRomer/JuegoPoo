@@ -11,7 +11,11 @@ import Clases.FiguraEstandar;
 import Clases.FiguraGeometrica;
 import Clases.Imagen;
 import Clases.Rectangulo;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.LinkedList;
@@ -53,6 +57,52 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void paintComponent(Graphics g){
         super.paintComponent(g);  // g -> lapiz
         dibujarFiguras(g);
+        if(!this.isEstaJugando()){
+        showIntoScreen(g);  
+            
+        }
+
+        
+    }
+    public void showIntoScreen(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        
+        String s ="";
+        if(!this.isEstaJugando() && this.ganado == -1){
+            s = "Presiona PLAY para empezar.";
+            Font small = new Font("Helvetica", Font.BOLD, 15);
+            FontMetrics metr = this.getFontMetrics(small);
+            g2d.setColor(new Color(0, 32, 48));
+            g2d.fillRect(270, 220, 260, 50);
+            g2d.setColor(Color.white);
+            g2d.drawRect(270, 220, 260, 50);
+            g2d.setColor(Color.white);
+            g2d.setFont(small);
+            g2d.drawString(s, 290, 250);
+        }else if (!this.isEstaJugando() && this.ganado == 3){
+            
+            s = "Presiona Espacio para el segundo nivel.";
+            Font small = new Font("Helvetica", Font.BOLD, 15);
+            FontMetrics metr = this.getFontMetrics(small);
+            g2d.setColor(Color.white);
+            g2d.setFont(small);
+            g2d.drawString(s, 255, 250);
+        }
+        else if(!this.isEstaJugando() && this.ganado == 5){
+            s = "GRACIAS POR JUGAR";
+            Font small = new Font("Helvetica", Font.BOLD, 15);
+            FontMetrics metr = this.getFontMetrics(small);
+            g2d.setColor(new Color(0, 32, 48));
+            g2d.fillRect(270, 220, 260, 50);
+            g2d.setColor(Color.white);
+            g2d.drawRect(270, 220, 260, 50);
+            g2d.setColor(Color.white);
+            g2d.setFont(small);
+            g2d.drawString(s, 290, 250);
+        }
+        
+        
+        
     }
     
     public void dibujarFiguras(Graphics g){
@@ -244,23 +294,23 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void ganar(){
         if( this.getBasurero().size() > contarCirculos()){
                         this.setEstaJugando(false);
-
-            int respuesta=JOptionPane.showConfirmDialog(this, "HAS GANADO \n ¿quieres pasar al siguiente nivel?");
-                        this.setGanado(respuesta);
+                        
+                        
+                        if(this.ganado==4){
+                            
+                            int respuesta=JOptionPane.showConfirmDialog(this, "HAS GANADO \n¿quieres pasar al siguiente nivel?" ,"", JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE);
+                                if(respuesta==0){
+                                    this.setGanado(3);
+                                }else{
+                                    this.setGanado(5);
+                                }
+                        }else if(this.ganado==0){
+                            this.setGanado(5);
+                        }
+            
 
             this.getBasurero().clear();
-            if(respuesta==0){
-                this.setEstaJugando(true);
-                
-                
-            }
-            else if (respuesta==1){
-                this.setEstaJugando(true);
-            }else{
-                this.setEstaJugando(false);
-             JOptionPane.showMessageDialog(this, "HASTA PRONTO");   
-            }
-            JOptionPane.showMessageDialog(this, "PRESIONE ESPACIO 2 VECES PARA INICIAR");
+            
             
         }
     }
@@ -482,6 +532,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         if(objetoColisionado(jugador) instanceof Imagen){
             this.setEstaJugando(false);
             JOptionPane.showMessageDialog(this, "GAME OVER");
+            
+            
         }
         
     }

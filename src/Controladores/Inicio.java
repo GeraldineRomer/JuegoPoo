@@ -240,7 +240,6 @@ public class Inicio extends javax.swing.JFrame {
         this.btnPause.setFocusable(false);
         this.btnPlay.setFocusable(false);
         this.btnRetry.setFocusable(false);
-        this.btnNextLevel.setFocusable(false);
         this.setFocusable(true);
         
     }
@@ -261,7 +260,6 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnPause = new javax.swing.JButton();
         btnRetry = new javax.swing.JButton();
-        btnNextLevel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -312,13 +310,6 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        btnNextLevel.setText("NextLevel");
-        btnNextLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNextLevelActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -331,8 +322,7 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(lbPuntos)
                     .addComponent(jLabel1)
                     .addComponent(btnPause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRetry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNextLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnRetry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -351,8 +341,6 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(btnPause)
                 .addGap(18, 18, 18)
                 .addComponent(btnRetry)
-                .addGap(28, 28, 28)
-                .addComponent(btnNextLevel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -376,15 +364,16 @@ public class Inicio extends javax.swing.JFrame {
             this.lienzo1.movimientoDerecha(pacman);
             this.lienzo1.setLastKey("d");
         }
-        else if (evt.getKeyChar() == ' ' || evt.getKeyChar() == ' ') {
+        else if ( evt.getKeyChar() == ' ') {
             nivel2();
-            if(this.lienzo1.getGanado()==1){
-              creacionHilo();
-        this.btnPlay.setFocusable(false);
-        this.setFocusable(true);
-        
-        cambiarfoco();  
-            }
+            this.lienzo1.setGanado(0);
+//            if(this.lienzo1.getGanado()==1){
+//              creacionHilo();
+//        this.btnPlay.setFocusable(false);
+//        this.setFocusable(true);
+//        
+//        cambiarfoco();  
+//            }
         }
     }//GEN-LAST:event_formKeyPressed
 
@@ -395,11 +384,14 @@ public class Inicio extends javax.swing.JFrame {
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         // TODO add your handling code here:
         
-        creacionHilo();
-        this.btnPlay.setFocusable(false);
-        this.setFocusable(true);
         
+        starter();
+        this.lienzo1.setLastKey("q");
+        this.lienzo1.getText().get(0).setText("0");
+        this.btnPlay.setFocusable(false);
+        this.lienzo1.setGanado(4);
         cambiarfoco();
+        creacionHilo();
     }//GEN-LAST:event_btnPlayActionPerformed
 
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
@@ -424,22 +416,21 @@ public class Inicio extends javax.swing.JFrame {
 //        this.btnRetry.setFocusable(false);
 //        this.setFocusable(true);
         starter();
+        this.lienzo1.setLastKey("q");
         this.lienzo1.getText().get(0).setText("0");
         this.btnRetry.setFocusable(false);
         cambiarfoco();
         creacionHilo();
-    }//GEN-LAST:event_btnRetryActionPerformed
-
-    private void btnNextLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextLevelActionPerformed
-        // TODO add your handling code here:
-        this.lienzo1.setEstaJugando(false);
+        if(this.lienzo1.getGanado()==0){
+            this.lienzo1.setEstaJugando(false);
         while(this.proceso.isAlive()){
             System.out.println("todavia vive");
         }
 //        this.btnRetry.setFocusable(false);
 //        this.setFocusable(true);
         nivel2();
-    }//GEN-LAST:event_btnNextLevelActionPerformed
+        }
+    }//GEN-LAST:event_btnRetryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,7 +470,6 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNextLevel;
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnPlay;
     private javax.swing.JButton btnRetry;
