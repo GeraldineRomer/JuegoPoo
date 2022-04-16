@@ -81,12 +81,12 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             g2d.drawString(s, 290, 250);
         }else if (!this.isEstaJugando() && this.ganado == 3){
             
-            s = "Presiona Espacio para el segundo nivel.";
+            s = "Presiona 2 veces Espacio para el segundo nivel.";
             Font small = new Font("Helvetica", Font.BOLD, 15);
             FontMetrics metr = this.getFontMetrics(small);
             g2d.setColor(Color.white);
             g2d.setFont(small);
-            g2d.drawString(s, 255, 250);
+            g2d.drawString(s, 235, 250);
         }
         else if(!this.isEstaJugando() && this.ganado == 5){
             s = "GRACIAS POR JUGAR";

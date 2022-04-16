@@ -369,8 +369,10 @@ public class Inicio extends javax.swing.JFrame {
             this.pacman.setRuta("src/recursosPacman/pacmanDerecha.gif");
         }
         else if ( evt.getKeyChar() == ' ') {
+            
             nivel2();
             this.lienzo1.setGanado(0);
+            this.lienzo1.setEstaJugando(true);
 //            if(this.lienzo1.getGanado()==1){
 //              creacionHilo();
 //        this.btnPlay.setFocusable(false);
