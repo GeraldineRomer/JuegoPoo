@@ -184,7 +184,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             repaint();
             esperar(5);
         }
-        StopMov();
+        this.Mov.stop();
         System.out.println("murió");
         
     }
@@ -300,7 +300,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
         if( this.getBasurero().size() > contarCirculos()){
                         this.setEstaJugando(false);
                         
-                        
+                        this.Mov.stop();
                         if(this.ganado==4){
                             
                             int respuesta=JOptionPane.showConfirmDialog(this, "HAS GANADO \n¿quieres pasar al siguiente nivel?" ,"", JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE);
@@ -536,7 +536,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void GameOver(FiguraEstandar jugador){
         if(objetoColisionado(jugador) instanceof Imagen){
             this.setEstaJugando(false);
-            StopMov();
+            this.Mov.stop();
             AudioClip GameOver;
             GameOver = java.applet.Applet.newAudioClip(getClass().getResource("/recursosPacman/GameOver.wav"));
         GameOver.play();
