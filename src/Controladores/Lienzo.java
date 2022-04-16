@@ -11,6 +11,7 @@ import Clases.FiguraEstandar;
 import Clases.FiguraGeometrica;
 import Clases.Imagen;
 import Clases.Rectangulo;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -37,6 +38,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     private String lastKey;
     private int velocidadPacman;
     private int ganado;
+    AudioClip Mov;
     
     /**
      * Creates new form Lienzo
@@ -150,6 +152,8 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     @Override
     public void run() {
         System.out.println("llego");
+                        sonidoMov();
+
         while(this.isEstaJugando()){
             for (FiguraGeometrica figuraActual:this.getFiguras()) {
                 if(figuraActual instanceof FiguraEstandar){
@@ -180,6 +184,7 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
             repaint();
             esperar(5);
         }
+        StopMov();
         System.out.println("murió");
         
     }
@@ -531,14 +536,20 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
     public void GameOver(FiguraEstandar jugador){
         if(objetoColisionado(jugador) instanceof Imagen){
             this.setEstaJugando(false);
-            JOptionPane.showMessageDialog(this, "GAME OVER");
-            
+            StopMov();
+            AudioClip GameOver;
+            GameOver = java.applet.Applet.newAudioClip(getClass().getResource("/recursosPacman/GameOver.wav"));
+        GameOver.play();
+                        JOptionPane.showMessageDialog(this, "GAME OVER");
+
             
         }
         
     }
     
     public void movimientoPacman(FiguraEstandar jugador){
+        
+        
         if(getLastKey()=="w"){
             movimientoArriba(jugador);
         }else if(getLastKey()=="s"){
@@ -630,6 +641,15 @@ public class Lienzo extends javax.swing.JPanel implements Runnable {
                 jugador.setX(paredColisionada(jugador).getX() - jugador.getAncho());
             }        
         }
+    }
+    public void sonidoMov(){
+        
+        this.Mov = java.applet.Applet.newAudioClip(getClass().getResource("/recursosPacman/Mov.wav"));
+                this.Mov.loop();
+
+    }
+    public void StopMov(){
+        this.Mov.stop();
     }
     
     

@@ -11,6 +11,7 @@ import Clases.Imagen;
 import Clases.Rectangulo;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.applet.AudioClip;
 
 /**
  *
@@ -19,6 +20,7 @@ import java.awt.event.KeyEvent;
 public class Inicio extends javax.swing.JFrame {
  Imagen pacman;
  Thread proceso;
+ AudioClip Mov;
     /**
      * Creates new form Inicio
      */
@@ -28,10 +30,9 @@ public class Inicio extends javax.swing.JFrame {
             starter();
         cambiarfoco();
         this.lienzo1.getText().add(this.lbPuntos);
-        
-        
-           
-
+        AudioClip intro;
+            intro = java.applet.Applet.newAudioClip(getClass().getResource("/recursosPacman/introPacman.wav"));
+        intro.play();
         
         
         
@@ -44,6 +45,8 @@ public class Inicio extends javax.swing.JFrame {
         creacionEscenario();
         this.lienzo1.setPunto(0);   
         this.setFocusable(true);
+        
+        
     }
     public void creacionHilo(){
         proceso=new Thread(this.lienzo1);
@@ -373,6 +376,8 @@ public class Inicio extends javax.swing.JFrame {
             nivel2();
             this.lienzo1.setGanado(0);
             this.lienzo1.setEstaJugando(true);
+            
+            
 //            if(this.lienzo1.getGanado()==1){
 //              creacionHilo();
 //        this.btnPlay.setFocusable(false);
@@ -396,6 +401,8 @@ public class Inicio extends javax.swing.JFrame {
         this.lienzo1.getText().get(0).setText("0");
         this.btnPlay.setFocusable(false);
         this.lienzo1.setGanado(4);
+        
+         
         cambiarfoco();
         creacionHilo();
     }//GEN-LAST:event_btnPlayActionPerformed
@@ -429,6 +436,7 @@ public class Inicio extends javax.swing.JFrame {
         creacionHilo();
         if(this.lienzo1.getGanado()==0){
             this.lienzo1.setEstaJugando(false);
+            
         while(this.proceso.isAlive()){
             System.out.println("todavia vive");
         }
