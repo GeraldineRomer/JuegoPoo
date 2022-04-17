@@ -36,7 +36,6 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPause" max="32767" attributes="0"/>
                   <Component id="btnRetry" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnNextLevel" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
           </Group>
@@ -59,8 +58,6 @@
               <Component id="btnPause" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnRetry" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Component id="btnNextLevel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -122,14 +119,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRetryActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnNextLevel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="NextLevel"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNextLevelActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
