@@ -371,11 +371,15 @@ public class Inicio extends javax.swing.JFrame {
             this.lienzo1.setLastKey("d");
             this.pacman.setRuta("src/recursosPacman/pacmanDerecha.gif");
         }
-        else if ( evt.getKeyChar() == ' ') {
+        else if (this.lienzo1.getGanado()==3){
+             if ( evt.getKeyChar() == ' ') {
             
             nivel2();
             this.lienzo1.setGanado(0);
             this.lienzo1.setEstaJugando(true);
+            this.lienzo1.setLastKey("q");
+        }
+        
             
             
 //            if(this.lienzo1.getGanado()==1){
